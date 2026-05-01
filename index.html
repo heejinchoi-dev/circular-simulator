@@ -536,8 +536,8 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
         <!-- ══ WE CONNECT 변수 — 여기 숫자 수정 ══ -->
         <div class="panel-title">🏪 가맹점</div>
         <div class="sg">
-          <div class="sl"><span class="sn">2026년 프로 가맹점(추정)</span><span class="sv" id="cn-pro-v">200개</span></div>
-          <input type="range" id="cn-pro" min="0" max="100000" step="100" value="200">
+          <div class="sl"><span class="sn">총 가맹점 수 (현재)</span><span class="sv" id="cn-total-v">250개</span></div>
+          <input type="range" id="cn-total" min="0" max="100000" step="10" value="250">
           <!-- TAM 바 -->
           <div style="margin-top:6px;">
             <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--g2);margin-bottom:2px;">
@@ -553,11 +553,12 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
           </div>
         </div>
         <div class="sg">
-          <div class="sl"><span class="sn">2026년 베이직 가맹점(추정)</span><span class="sv" id="cn-bas-v">50개</span></div>
-          <input type="range" id="cn-bas" min="0" max="50000" step="100" value="50">
+          <div class="sl"><span class="sn">프로 가맹점 비율</span><span class="sv" id="cn-pro-ratio-v">80%</span></div>
+          <input type="range" id="cn-pro-ratio" min="0" max="100" step="5" value="80">
+          <p class="note">프로 <b id="cn-pro-calc">200개</b> · 베이직 <b id="cn-bas-calc">50개</b> 자동 계산</p>
         </div>
         <div class="sg">
-          <div class="sl"><span class="sn">월 신규 가맹점</span><span class="sv" id="cn-new-v">10개</span></div>
+          <div class="sl"><span class="sn">월 신규 가맹점 (총)</span><span class="sv" id="cn-new-v">10개</span></div>
           <input type="range" id="cn-new" min="1" max="500" step="1" value="10">
         </div>
         <div class="sg">
@@ -809,7 +810,7 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
 const ALL_SLIDER_IDS = [
   'mk-stock','mk-qty','mk-price','mk-oem','mk-factory','mk-mode','mk-growth',
   'op-cnt','op-price','op-cost','op-labor','op-subsidy','op-rent','op-dep','op-growth',
-  'cn-pro','cn-bas','cn-new','cn-churn','cn-sub','cn-daily','cn-rcup','cn-price','cn-commission','cn-pg','cn-wash','cn-wc','cn-hq',
+  'cn-total','cn-pro-ratio','cn-new','cn-churn','cn-sub','cn-daily','cn-rcup','cn-price','cn-commission','cn-pg','cn-wash','cn-wc','cn-hq',
   'db-invest'
 ];
 
@@ -1315,9 +1316,9 @@ function calcOperate(){
 ════════════════════════════════ */
 // ══ WE CONNECT 시나리오 값 ══
 const CONNECT_SCENARIOS = {
-  conservative: { 'cn-pro':100,'cn-bas':30,'cn-new':5, 'cn-churn':8, 'cn-sub':49000,'cn-daily':80, 'cn-rcup':50,'cn-price':4500,'cn-commission':2.0,'cn-pg':1.2,'cn-wash':190,'cn-wc':150,'cn-hq':15 },
-  base:         { 'cn-pro':200,'cn-bas':50,'cn-new':10,'cn-churn':5, 'cn-sub':49000,'cn-daily':100,'cn-rcup':60,'cn-price':4500,'cn-commission':2.0,'cn-pg':1.2,'cn-wash':190,'cn-wc':150,'cn-hq':15 },
-  aggressive:   { 'cn-pro':400,'cn-bas':100,'cn-new':25,'cn-churn':3,'cn-sub':49000,'cn-daily':120,'cn-rcup':70,'cn-price':4500,'cn-commission':2.0,'cn-pg':1.2,'cn-wash':190,'cn-wc':120,'cn-hq':15 }
+  conservative: { 'cn-total':130,'cn-pro-ratio':75,'cn-new':5, 'cn-churn':8, 'cn-sub':49000,'cn-daily':80, 'cn-rcup':50,'cn-price':4500,'cn-commission':2.0,'cn-pg':1.2,'cn-wash':190,'cn-wc':150,'cn-hq':15 },
+  base:         { 'cn-total':250,'cn-pro-ratio':80,'cn-new':10,'cn-churn':5, 'cn-sub':49000,'cn-daily':100,'cn-rcup':60,'cn-price':4500,'cn-commission':2.0,'cn-pg':1.2,'cn-wash':190,'cn-wc':150,'cn-hq':15 },
+  aggressive:   { 'cn-total':500,'cn-pro-ratio':85,'cn-new':25,'cn-churn':3,'cn-sub':49000,'cn-daily':120,'cn-rcup':70,'cn-price':4500,'cn-commission':2.0,'cn-pg':1.2,'cn-wash':190,'cn-wc':120,'cn-hq':15 }
 };
 function setConnectScenario(type){
   Object.entries(CONNECT_SCENARIOS[type]).forEach(([id,v])=>{ $(id).value=v; });
@@ -1327,8 +1328,10 @@ function setConnectScenario(type){
 }
 
 function calcConnect(){
-  const pro         = gv('cn-pro');
-  const bas         = gv('cn-bas');
+  const total       = gv('cn-total');            // 총 가맹점 수
+  const proRatio    = gv('cn-pro-ratio')/100;    // 프로 비율
+  const pro         = Math.round(total * proRatio);   // 프로 가맹점 수 (자동)
+  const bas         = total - pro;                    // 베이직 가맹점 수 (자동)
   const newM        = gv('cn-new');
   const churnR      = gv('cn-churn')/100;
   const sub         = gv('cn-sub');
@@ -1336,52 +1339,48 @@ function calcConnect(){
   const daily       = gv('cn-daily');
   const rcup        = gv('cn-rcup')/100;
   const price       = gv('cn-price');
-  const commissionR = gv('cn-commission')/100;  // 중개수수료 (받는 것)
-  const pgR         = gv('cn-pg')/100;           // PG사 수수료 (내는 것)
+  const commissionR = gv('cn-commission')/100;
+  const pgR         = gv('cn-pg')/100;
   const wash        = gv('cn-wash');
   const washV       = wash*1.1;
-  const wc          = gv('cn-wc');               // 세척업체 지급 원가
+  const wc          = gv('cn-wc');
   const hqR         = gv('cn-hq')/100;
 
   const monthly     = daily*30;
-  const cupCnt      = Math.round(monthly*rcup);
-  const nonCnt      = monthly-cupCnt;
+  const cupCnt      = Math.round(monthly*rcup);   // 프로 가맹점의 다회용컵 건수
   const hqCut       = subV*hqR;
 
-  // 세척 마진: 가맹점에게 받는 세척단가(VAT포함) - 업체에 주는 원가
+  // 세척 마진: 프로 가맹점만 (다회용컵 비율 적용)
   const proWash     = (washV - wc) * cupCnt;
 
-  // 중개수수료 수취 (전체 주문 금액 기준)
+  // 중개수수료 수취 (전체 주문 기준)
   const commissionRevenue = price * monthly * commissionR;
-
-  // PG사 지급 (내는 비용)
+  // PG사 지급
   const pgCost      = price * monthly * pgR;
-
   // 순 수수료 마진
   const netCommission = commissionRevenue - pgCost;
 
-  // 프로 가맹점당 순익
+  // 프로 가맹점당 순익 (세척 마진 포함)
   const proUnit = subV - hqCut + proWash + netCommission;
+  // 베이직 가맹점당 순익 (세척 없음)
+  const basUnit = subV - hqCut + netCommission;
 
-  // 베이직: 세척 없음
-  const basNetCommission = price * monthly * (commissionR - pgR);
-  const basUnit = subV - hqCut + basNetCommission;
+  const mrr     = proUnit*pro + basUnit*bas;
+  const arr     = mrr*12;
+  const blended = total > 0 ? mrr/total : 0;
+  const ltv     = proUnit*36*(1-Math.pow(1-churnR,36));
+  const ltvCac  = ltv/800000;
 
-  const totalStores  = pro+bas || 1;
-  const blended      = (proUnit*pro + basUnit*bas)/totalStores;
-  const mrr          = proUnit*pro + basUnit*bas;
-  const arr          = mrr*12;
-  const ltv          = proUnit*36*(1-Math.pow(1-churnR,36));
-  const ltvCac       = ltv/800000;
-
-  // TAM 바
-  const tamPct = (totalStores/100000*100);
+  // TAM 바 (총 가맹점 기준)
+  const tamPct = (total/100000*100);
   $('cn-tam-fill').style.width = Math.max(tamPct,0.2).toFixed(2)+'%';
   $('cn-tam-pct').textContent  = (tamPct<0.1?tamPct.toFixed(2):tamPct.toFixed(1))+'%';
 
   // 라벨
-  $('cn-pro-v').textContent        = pro.toLocaleString()+'개';
-  $('cn-bas-v').textContent        = bas.toLocaleString()+'개';
+  $('cn-total-v').textContent      = total.toLocaleString()+'개';
+  $('cn-pro-ratio-v').textContent  = Math.round(proRatio*100)+'%';
+  $('cn-pro-calc').textContent     = pro.toLocaleString()+'개';
+  $('cn-bas-calc').textContent     = bas.toLocaleString()+'개';
   $('cn-new-v').textContent        = newM+'개';
   $('cn-churn-v').textContent      = Math.round(churnR*100)+'%';
   $('cn-sub-v').textContent        = sub.toLocaleString()+'원';
@@ -1397,21 +1396,21 @@ function calcConnect(){
   $('cn-hqcut').textContent        = Math.round(hqCut).toLocaleString()+'원';
 
   // KPI
-  $('cn-mrr').textContent   = fmtWon(mrr);
-  $('cn-arr').textContent   = '연 ARR '+fmtWon(arr);
+  $('cn-mrr').textContent    = fmtWon(mrr);
+  $('cn-arr').textContent    = '연 ARR '+fmtWon(arr);
   $('cn-profit').textContent = fmtWon(mrr);
-  $('cn-margin').textContent = '순매출 기준';
+  $('cn-margin').textContent = '프로 '+pro.toLocaleString()+'개 · 베이직 '+bas.toLocaleString()+'개';
   $('cn-ltvcac').textContent = ltvCac.toFixed(1)+'x';
 
-  // 분해 (프로 기준)
-  $('cn-r1').textContent          = '+'+Math.round(subV).toLocaleString()+'원';
-  $('cn-r2').textContent          = '+'+Math.round(proWash).toLocaleString()+'원';
-  $('cn-r3').textContent          = '+'+Math.round(commissionRevenue).toLocaleString()+'원';
-  $('cn-r-pg').textContent        = '-'+Math.round(pgCost).toLocaleString()+'원';
-  $('cn-r4').textContent          = '-'+Math.round(hqCut).toLocaleString()+'원';
-  $('cn-net-commission').textContent = fmtWon(netCommission) + ' (수수료 순마진 '+((commissionR-pgR)*100).toFixed(1)+'%p)';
-  $('cn-unit').textContent        = w(Math.round(proUnit));
-  $('cn-unit').style.color        = proUnit>=0?'var(--green)':'var(--red)';
+  // 수익 분해 (프로 기준 1개당)
+  $('cn-r1').textContent         = '+'+Math.round(subV).toLocaleString()+'원';
+  $('cn-r2').textContent         = '+'+Math.round(proWash).toLocaleString()+'원';
+  $('cn-r3').textContent         = '+'+Math.round(commissionRevenue).toLocaleString()+'원';
+  $('cn-r-pg').textContent       = '-'+Math.round(pgCost).toLocaleString()+'원';
+  $('cn-r4').textContent         = '-'+Math.round(hqCut).toLocaleString()+'원';
+  $('cn-net-commission').textContent = fmtWon(netCommission)+' (수수료 순마진 '+((commissionR-pgR)*100).toFixed(1)+'%p)';
+  $('cn-unit').textContent       = w(Math.round(proUnit));
+  $('cn-unit').style.color       = proUnit>=0?'var(--green)':'var(--red)';
 
   // TAM 카드
   const tamCards = [
@@ -1420,25 +1419,31 @@ function calcConnect(){
     {label:'TAM',stores:100000,color:'var(--green)'}
   ];
   $('cn-tam-cards').innerHTML = tamCards.map(c=>{
-    const a = c.stores*blended*12;
+    const a    = c.stores*blended*12;
+    const cPro = Math.round(c.stores*proRatio);
+    const cBas = c.stores - cPro;
     return `<div style="background:var(--bg3);border-radius:8px;padding:10px;text-align:center;border:1px solid var(--bdr);">
       <div style="font-size:9px;color:var(--g1);margin-bottom:3px;">${c.label} 달성</div>
       <div style="font-size:12px;font-weight:900;color:${c.color};">${c.stores.toLocaleString()}개</div>
-      <div style="font-size:11px;font-weight:700;color:${c.color};">ARR ${fmtWon(a)}</div>
+      <div style="font-size:9px;color:var(--g2);margin-top:2px;">프로 ${cPro.toLocaleString()} · 베이직 ${cBas.toLocaleString()}</div>
+      <div style="font-size:11px;font-weight:700;color:${c.color};margin-top:3px;">ARR ${fmtWon(a)}</div>
     </div>`;
   }).join('');
 
-  // 18개월 ARR 프로젝션
+  // 18개월 ARR 프로젝션 (총 가맹점 기준)
   const labels=[], storeData=[], arrData=[];
-  let stores = pro;
+  let stores = total;
   for(let m=1;m<=18;m++){
     stores = Math.max(0, stores*(1-churnR)+newM);
+    const curPro = Math.round(stores * proRatio);
+    const curBas = stores - curPro;
+    const curMrr = proUnit*curPro + basUnit*curBas;
     labels.push(m+'개월');
     storeData.push(Math.round(stores));
-    arrData.push(Math.round(stores*proUnit*12/10000));
+    arrData.push(Math.round(curMrr*12/10000));
   }
-  $('cn-arr18').textContent   = fmtWon(arrData[17]*10000);
-  $('cn-stores18').textContent= '가맹점 '+storeData[17].toLocaleString()+'개';
+  $('cn-arr18').textContent    = fmtWon(arrData[17]*10000);
+  $('cn-stores18').textContent = '총 가맹점 '+storeData[17].toLocaleString()+'개 (프로 '+Math.round(storeData[17]*proRatio).toLocaleString()+'개)';
   cnChart.data.labels = labels;
   cnChart.data.datasets[0].data = storeData;
   cnChart.data.datasets[1].data = arrData;
@@ -1688,7 +1693,7 @@ function bindSliders(){
   ['op-cnt','op-price','op-cost','op-labor','op-subsidy','op-rent','op-dep','op-growth']
     .forEach(id => $(id).addEventListener('input', calcOperate));
   // WE CONNECT
-  ['cn-pro','cn-bas','cn-new','cn-churn','cn-sub','cn-daily','cn-rcup','cn-price','cn-commission','cn-pg','cn-wash','cn-wc','cn-hq']
+  ['cn-total','cn-pro-ratio','cn-new','cn-churn','cn-sub','cn-daily','cn-rcup','cn-price','cn-commission','cn-pg','cn-wash','cn-wc','cn-hq']
     .forEach(id => $(id).addEventListener('input', calcConnect));
   // 투자 ROI
   $('db-invest').addEventListener('input', function(){
