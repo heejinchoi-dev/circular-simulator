@@ -369,6 +369,13 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
           <p class="note">0 = OEM 외주 &nbsp;|&nbsp; 1 = 자체공장</p>
         </div>
         <hr class="div">
+        <div class="panel-title">👥 인건비 (공장 운영)</div>
+        <div class="sg">
+          <div class="sl"><span class="sn">공장 운영 인건비 (월)</span><span class="sv" id="mk-labor-v">0원</span></div>
+          <input type="range" id="mk-labor" min="0" max="100000000" step="1000000" value="0">
+          <p class="note" id="mk-labor-note">자체공장 가동 시 적용 · OEM일 때는 0원으로 설정</p>
+        </div>
+        <hr class="div">
         <div class="panel-title">📈 성장</div>
         <div class="sg">
           <div class="sl"><span class="sn">월 납품 성장률</span><span class="sv" id="mk-growth-v">5%</span></div>
@@ -393,6 +400,7 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
           <div class="row-item"><span class="row-label">납품 매출</span><span class="row-val pos" id="mk-r1">-</span></div>
           <div class="row-item"><span class="row-label">용기 원가 (현재)</span><span class="row-val neg" id="mk-r2">-</span></div>
           <div class="row-item"><span class="row-label">물류·포장비 (매출 3%)</span><span class="row-val neg" id="mk-r3">-</span></div>
+          <div class="row-item" id="mk-r4-row"><span class="row-label" id="mk-r4-label">공장 운영 인건비</span><span class="row-val neg" id="mk-r4">-</span></div>
           <div class="total-row"><span>월 영업이익</span><span id="mk-total" style="font-family:'Space Mono',monospace;">-</span></div>
         </div>
 
@@ -631,6 +639,27 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
           <input type="range" id="cn-hw-cost" min="0" max="1000000" step="10000" value="200000">
           <p class="note" style="color:var(--red);">4개월 상각 → 월 <b id="cn-hw-dep-v">50,000원</b> · 이후 전액 순이익 전환</p>
         </div>
+        <hr class="div">
+        <div class="panel-title">👥 본사 고정비 (월)</div>
+        <div class="sg">
+          <div class="sl"><span class="sn">개발자 인건비</span><span class="sv" id="cn-dev-v">1,500만</span></div>
+          <input type="range" id="cn-dev" min="0" max="100000000" step="1000000" value="15000000">
+          <p class="note">앱·RFID·시스템 개발·유지보수</p>
+        </div>
+        <div class="sg">
+          <div class="sl"><span class="sn">영업·CS 인건비</span><span class="sv" id="cn-sales-v">1,000만</span></div>
+          <input type="range" id="cn-sales" min="0" max="100000000" step="1000000" value="10000000">
+        </div>
+        <div class="sg">
+          <div class="sl"><span class="sn">마케팅비</span><span class="sv" id="cn-mktg-v">500만</span></div>
+          <input type="range" id="cn-mktg" min="0" max="100000000" step="1000000" value="5000000">
+        </div>
+        <div class="sg">
+          <div class="sl"><span class="sn">서버·인프라비</span><span class="sv" id="cn-server-v">200만</span></div>
+          <input type="range" id="cn-server" min="0" max="10000000" step="100000" value="2000000">
+        </div>
+        <hr class="div">
+        <div class="panel-title">🏢 본사 배분</div>
         <div class="sg">
           <div class="sl"><span class="sn">배분율 (구독료 VAT포함 기준)</span><span class="sv" id="cn-hq-v">15%</span></div>
           <input type="range" id="cn-hq" min="0" max="30" step="1" value="15">
@@ -640,10 +669,11 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
 
       <div class="result-section">
         <div class="kpi-grid">
-          <div class="kpi cyan"><div class="kl">월 MRR</div><div class="kv" id="cn-mrr">-</div><div class="ks" id="cn-arr">연 ARR -</div></div>
-          <div class="kpi green"><div class="kl">월 영업이익</div><div class="kv" id="cn-profit">-</div><div class="ks" id="cn-margin">마진율 -</div></div>
+          <div class="kpi cyan"><div class="kl">월 MRR (총 수취)</div><div class="kv" id="cn-mrr">-</div><div class="ks" id="cn-arr">연 ARR -</div></div>
+          <div class="kpi green"><div class="kl">월 영업이익 (고정비 차감)</div><div class="kv" id="cn-profit">-</div><div class="ks" id="cn-margin">-</div></div>
           <div class="kpi yellow"><div class="kl">LTV/CAC</div><div class="kv" id="cn-ltvcac">-</div><div class="ks">CAC 80만원 기준</div></div>
           <div class="kpi blue"><div class="kl">18개월 후 ARR</div><div class="kv" id="cn-arr18">-</div><div class="ks" id="cn-stores18">가맹점 -개</div></div>
+          <div class="kpi red"><div class="kl">본사 고정비 (월)</div><div class="kv" id="cn-fixed-total">-</div><div class="ks">개발+영업+마케팅+서버</div></div>
         </div>
 
         <div class="card">
@@ -825,9 +855,9 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
 
 /* ── 모든 슬라이더 ID 목록 ── */
 const ALL_SLIDER_IDS = [
-  'mk-stock','mk-qty','mk-price','mk-oem','mk-factory','mk-mode','mk-growth',
+  'mk-stock','mk-qty','mk-price','mk-oem','mk-factory','mk-mode','mk-labor','mk-growth',
   'op-cnt','op-price','op-cost','op-labor','op-subsidy','op-rent','op-dep','op-growth',
-  'cn-total','cn-pro-ratio','cn-new','cn-churn','cn-sub','cn-daily','cn-rcup','cn-price','cn-commission','cn-wash','cn-wc','cn-ops','cn-hw-rental','cn-hw-cost','cn-hq',
+  'cn-total','cn-pro-ratio','cn-new','cn-churn','cn-sub','cn-daily','cn-rcup','cn-price','cn-commission','cn-wash','cn-wc','cn-ops','cn-hw-rental','cn-hw-cost','cn-dev','cn-sales','cn-mktg','cn-server','cn-hq',
   'db-invest'
 ];
 
@@ -1125,9 +1155,9 @@ function initAllCharts(){
 ════════════════════════════════ */
 // ══ WE MAKE 시나리오 값 — 숫자 수정 가능 ══
 const MAKE_SCENARIOS = {
-  conservative: { 'mk-stock':20000,'mk-qty':15000,'mk-price':2500,'mk-oem':1250,'mk-factory':600,'mk-mode':0,'mk-growth':3 },
-  base:         { 'mk-stock':39977,'mk-qty':36400,'mk-price':2900,'mk-oem':1250,'mk-factory':600,'mk-mode':0,'mk-growth':5 },
-  aggressive:   { 'mk-stock':39977,'mk-qty':60000,'mk-price':3200,'mk-oem':1250,'mk-factory':600,'mk-mode':1,'mk-growth':15 }
+  conservative: { 'mk-stock':20000,'mk-qty':15000,'mk-price':2500,'mk-oem':1250,'mk-factory':600,'mk-mode':0,'mk-labor':0,'mk-growth':3 },
+  base:         { 'mk-stock':39977,'mk-qty':36400,'mk-price':2900,'mk-oem':1250,'mk-factory':600,'mk-mode':0,'mk-labor':0,'mk-growth':5 },
+  aggressive:   { 'mk-stock':39977,'mk-qty':60000,'mk-price':3200,'mk-oem':1250,'mk-factory':600,'mk-mode':1,'mk-labor':15000000,'mk-growth':15 }
 };
 function setMakeScenario(type){
   Object.entries(MAKE_SCENARIOS[type]).forEach(([id,v])=>{ $(id).value=v; });
@@ -1143,6 +1173,7 @@ function calcMake(){
   const oemCost = gv('mk-oem');
   const facCost = gv('mk-factory');
   const mode    = gv('mk-mode');
+  const labor   = gv('mk-labor');  // 공장 운영 인건비
   const growth  = gv('mk-growth')/100;
   const curCost = mode===1 ? facCost : oemCost;
   const logistics = price * 0.03;
@@ -1150,8 +1181,15 @@ function calcMake(){
   const monthRev = price * qty;
   const monthCost = curCost * qty;
   const monthLogistics = logistics * qty;
-  const monthProfit = monthRev - monthCost - monthLogistics;
+  const monthProfit = monthRev - monthCost - monthLogistics - labor;
   const margin = monthRev > 0 ? (monthProfit/monthRev*100) : 0;
+
+  // 인건비 라벨 (자체공장이면 강조)
+  const laborFmt = labor >= 100000000 ? (labor/100000000).toFixed(1)+'억' : Math.round(labor/10000)+'만';
+  $('mk-labor-v').textContent = laborFmt+'원';
+  $('mk-labor-note').textContent = mode===1
+    ? '✅ 자체공장 가동 중 — 인건비 반영됨'
+    : '⚠️ OEM 모드 — 자체공장 가동 시 인건비를 설정하세요';
 
   // 재고 자산
   const stockValue = stock * oemCost;
@@ -1190,6 +1228,8 @@ function calcMake(){
   $('mk-r1').textContent = '+'+fmtWon(monthRev);
   $('mk-r2').textContent = '-'+fmtWon(monthCost);
   $('mk-r3').textContent = '-'+fmtWon(monthLogistics);
+  $('mk-r4').textContent = labor > 0 ? '-'+fmtWon(labor) : '0원 (OEM)';
+  $('mk-r4-row').style.opacity = labor > 0 ? '1' : '0.4';
   $('mk-total').textContent = w(monthProfit);
   $('mk-total').style.color = monthProfit>=0 ? 'var(--green)' : 'var(--red)';
 
@@ -1333,9 +1373,9 @@ function calcOperate(){
 ════════════════════════════════ */
 // ══ WE CONNECT 시나리오 값 ══
 const CONNECT_SCENARIOS = {
-  conservative: { 'cn-total':130,'cn-pro-ratio':75,'cn-new':5, 'cn-churn':8, 'cn-sub':49000,'cn-daily':80, 'cn-rcup':50,'cn-price':4500,'cn-commission':2.0,'cn-wash':190,'cn-wc':150,'cn-ops':30,'cn-hw-rental':49000,'cn-hw-cost':200000,'cn-hq':15 },
-  base:         { 'cn-total':250,'cn-pro-ratio':80,'cn-new':10,'cn-churn':5, 'cn-sub':49000,'cn-daily':100,'cn-rcup':60,'cn-price':4500,'cn-commission':2.0,'cn-wash':190,'cn-wc':150,'cn-ops':30,'cn-hw-rental':49000,'cn-hw-cost':200000,'cn-hq':15 },
-  aggressive:   { 'cn-total':500,'cn-pro-ratio':85,'cn-new':25,'cn-churn':3,'cn-sub':49000,'cn-daily':120,'cn-rcup':70,'cn-price':4500,'cn-commission':2.0,'cn-wash':190,'cn-wc':120,'cn-ops':25,'cn-hw-rental':49000,'cn-hw-cost':200000,'cn-hq':15 }
+  conservative: { 'cn-total':130,'cn-pro-ratio':75,'cn-new':5, 'cn-churn':8, 'cn-sub':49000,'cn-daily':80, 'cn-rcup':50,'cn-price':4500,'cn-commission':2.0,'cn-wash':190,'cn-wc':150,'cn-ops':30,'cn-hw-rental':49000,'cn-hw-cost':200000,'cn-dev':15000000,'cn-sales':10000000,'cn-mktg':5000000,'cn-server':2000000,'cn-hq':15 },
+  base:         { 'cn-total':250,'cn-pro-ratio':80,'cn-new':10,'cn-churn':5, 'cn-sub':49000,'cn-daily':100,'cn-rcup':60,'cn-price':4500,'cn-commission':2.0,'cn-wash':190,'cn-wc':150,'cn-ops':30,'cn-hw-rental':49000,'cn-hw-cost':200000,'cn-dev':15000000,'cn-sales':10000000,'cn-mktg':5000000,'cn-server':2000000,'cn-hq':15 },
+  aggressive:   { 'cn-total':500,'cn-pro-ratio':85,'cn-new':25,'cn-churn':3,'cn-sub':49000,'cn-daily':120,'cn-rcup':70,'cn-price':4500,'cn-commission':2.0,'cn-wash':190,'cn-wc':120,'cn-ops':25,'cn-hw-rental':49000,'cn-hw-cost':200000,'cn-dev':20000000,'cn-sales':15000000,'cn-mktg':10000000,'cn-server':3000000,'cn-hq':15 }
 };
 function setConnectScenario(type){
   Object.entries(CONNECT_SCENARIOS[type]).forEach(([id,v])=>{ $(id).value=v; });
@@ -1395,8 +1435,23 @@ function calcConnect(){
   // ── 가맹점당 순익 (하드웨어 포함)
   const proUnit = subV - hqCut + proWashMargin + proNetCommission + hwRental - hwDepMon;
   const basUnit = subV - hqCut + basNetCommission + hwRental - hwDepMon;
-
   const mrr     = proUnit*pro + basUnit*bas;
+
+  const cnDev    = gv('cn-dev');
+  const cnSales  = gv('cn-sales');
+  const cnMktg   = gv('cn-mktg');
+  const cnServer = gv('cn-server');
+  const cnFixed  = cnDev + cnSales + cnMktg + cnServer;
+
+  // 고정비 라벨
+  const fmtMan = v => Math.round(v/10000)+'만';
+  $('cn-dev-v').textContent    = fmtMan(cnDev)+'원';
+  $('cn-sales-v').textContent  = fmtMan(cnSales)+'원';
+  $('cn-mktg-v').textContent   = fmtMan(cnMktg)+'원';
+  $('cn-server-v').textContent = fmtMan(cnServer)+'원';
+
+  const monthlyOpProfit = mrr - cnFixed;
+  const opMargin = mrr > 0 ? (monthlyOpProfit/mrr*100) : 0;
   const arr     = mrr*12;
   const blended = total > 0 ? mrr/total : 0;
   const ltv     = proUnit*36*(1-Math.pow(1-churnR,36));
@@ -1433,11 +1488,13 @@ function calcConnect(){
   $('cn-hqcut').textContent        = Math.round(hqCut).toLocaleString()+'원';
 
   // KPI
-  $('cn-mrr').textContent    = fmtWon(mrr);
-  $('cn-arr').textContent    = '연 ARR '+fmtWon(arr);
-  $('cn-profit').textContent = fmtWon(mrr);
-  $('cn-margin').textContent = '프로 '+pro.toLocaleString()+'개 · 베이직 '+bas.toLocaleString()+'개';
-  $('cn-ltvcac').textContent = ltvCac.toFixed(1)+'x';
+  $('cn-mrr').textContent       = fmtWon(mrr);
+  $('cn-arr').textContent       = '연 ARR '+fmtWon(arr);
+  $('cn-profit').textContent    = fmtWon(monthlyOpProfit);
+  $('cn-profit').style.color    = monthlyOpProfit>=0?'var(--green)':'var(--red)';
+  $('cn-margin').textContent    = '영업이익률 '+opMargin.toFixed(1)+'% · 프로 '+pro.toLocaleString()+'개 · 베이직 '+bas.toLocaleString()+'개';
+  $('cn-ltvcac').textContent    = ltvCac.toFixed(1)+'x';
+  $('cn-fixed-total').textContent = fmtWon(cnFixed);
 
   // 프로 vs 베이직 비교 그리드
   const rows = [
@@ -1667,13 +1724,13 @@ function calcAll(){
 // 모든 슬라이더에 이벤트 바인딩
 function bindSliders(){
   // WE MAKE
-  ['mk-stock','mk-qty','mk-price','mk-oem','mk-factory','mk-mode','mk-growth']
+  ['mk-stock','mk-qty','mk-price','mk-oem','mk-factory','mk-mode','mk-labor','mk-growth']
     .forEach(id => $(id).addEventListener('input', calcMake));
   // WE OPERATE
   ['op-cnt','op-price','op-cost','op-labor','op-subsidy','op-rent','op-dep','op-growth']
     .forEach(id => $(id).addEventListener('input', calcOperate));
   // WE CONNECT
-  ['cn-total','cn-pro-ratio','cn-new','cn-churn','cn-sub','cn-daily','cn-rcup','cn-price','cn-commission','cn-wash','cn-wc','cn-ops','cn-hw-rental','cn-hw-cost','cn-hq']
+  ['cn-total','cn-pro-ratio','cn-new','cn-churn','cn-sub','cn-daily','cn-rcup','cn-price','cn-commission','cn-wash','cn-wc','cn-ops','cn-hw-rental','cn-hw-cost','cn-dev','cn-sales','cn-mktg','cn-server','cn-hq']
     .forEach(id => $(id).addEventListener('input', calcConnect));
   // 투자 ROI
   $('db-invest').addEventListener('input', function(){
