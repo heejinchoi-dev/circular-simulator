@@ -1,9 +1,11 @@
-<html lang="ko"><head>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>써큘러랩스 IR 시뮬레이터 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
 /* ════════════════════════════════
@@ -258,7 +260,7 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
 <!-- ════════════════════════════════
      LOGIN OVERLAY
 ════════════════════════════════ -->
-<div id="login-overlay" style="display: none;">
+<div id="login-overlay">
   <div class="login-box" id="login-box">
     <div class="login-logo">CIRCULAR LABS</div>
     <div class="login-title">IR 시뮬레이터 2026</div>
@@ -276,23 +278,24 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
 <!-- ════════════════════════════════
      MAIN APP
 ════════════════════════════════ -->
-<div id="app" style="display: block;">
+<div id="app">
 
   <!-- 헤더 -->
   <div class="app-header">
     <div class="app-header-logo">CIRCULAR LABS</div>
     <div class="app-header-title">IR Simulator 2026</div>
-    <div class="app-header-right" id="header-date">2026.05.01 · CONFIDENTIAL</div>
+    <div class="app-header-right" id="header-date"></div>
   </div>
 
   <!-- 관리자 바 (관리자 로그인 시만 표시) -->
-  <div id="admin-bar" class="show">
+  <div id="admin-bar">
     <div class="admin-label">
       <span>ADMIN</span>
       GitHub 토큰 입력 후 저장하면 index.html이 자동 업데이트됩니다
     </div>
     <div class="admin-btns">
-      <input type="password" id="gh-token" placeholder="GitHub Token (ghp_...)" style="padding:6px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.3);
+      <input type="password" id="gh-token" placeholder="GitHub Token (ghp_...)"
+        style="padding:6px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.3);
         background:rgba(255,255,255,0.1);color:#fff;font-size:12px;width:220px;
         font-family:'Space Mono',monospace;outline:none;">
       <button class="admin-copy-btn" onclick="copyAdminLink()">🔗 링크만 복사</button>
@@ -301,14 +304,14 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
   </div>
 
   <!-- 저장 완료 토스트 -->
-  <div class="admin-saved-toast show" id="saved-toast">⏳ GitHub에 저장 중...</div>
+  <div class="admin-saved-toast" id="saved-toast">✅ 기본값이 저장됐습니다! 이 링크를 index.html에 붙여넣으세요.</div>
 
   <!-- 탭 네비게이션 -->
   <nav class="tab-nav">
-    <button class="tab-btn" onclick="switchTab('dashboard',this)">📊 통합 대시보드</button>
+    <button class="tab-btn active" onclick="switchTab('dashboard',this)">📊 통합 대시보드</button>
     <button class="tab-btn" onclick="switchTab('make',this)">🏭 WE MAKE</button>
     <button class="tab-btn" onclick="switchTab('operate',this)">🧹 WE OPERATE</button>
-    <button class="tab-btn active" onclick="switchTab('connect',this)">📱 WE CONNECT</button>
+    <button class="tab-btn" onclick="switchTab('connect',this)">📱 WE CONNECT</button>
     <button class="tab-btn coming" onclick="switchTab('franchise',this)">🔧 세척장 구독형 SaaS <span class="badge">COMING</span></button>
     <button class="tab-btn coming" onclick="switchTab('cafe',this)">☕ 카페 운영 <span class="badge">COMING</span></button>
     <button class="tab-btn coming" onclick="switchTab('mall',this)">🛍 아란테 몰 <span class="badge">COMING</span></button>
@@ -336,14 +339,14 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
         <!-- ══ WE MAKE 변수 — 여기 숫자 수정 ══ -->
         <div class="panel-title">📦 납품 설정</div>
         <div class="sg">
-          <div class="sl"><span class="sn">현재 보유 용기 수량</span><span class="sv" id="mk-stock-v">0개</span></div>
+          <div class="sl"><span class="sn">현재 보유 용기 수량</span><span class="sv" id="mk-stock-v">39,977개</span></div>
           <input type="range" id="mk-stock" min="0" max="200000" step="100" value="39977">
-          <p class="note">재고 자산: <b id="mk-stock-val">0원</b> (OEM 원가 기준)</p>
+          <p class="note">재고 자산: <b id="mk-stock-val">-</b> (OEM 원가 기준)</p>
         </div>
         <div class="sg">
-          <div class="sl"><span class="sn">월 납품 수량</span><span class="sv" id="mk-qty-v">27,800개</span></div>
+          <div class="sl"><span class="sn">월 납품 수량</span><span class="sv" id="mk-qty-v">36,400개</span></div>
           <input type="range" id="mk-qty" min="100" max="200000" step="100" value="36400">
-          <p class="note">연 <b id="mk-qty-y">33만</b>개 납품</p>
+          <p class="note">연 <b id="mk-qty-y">44만</b>개 납품</p>
         </div>
         <div class="sg">
           <div class="sl"><span class="sn">납품 단가 (개당)</span><span class="sv" id="mk-price-v">2,900원</span></div>
@@ -352,13 +355,13 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
         <hr class="div">
         <div class="panel-title">🏭 원가 구조</div>
         <div class="sg">
-          <div class="sl"><span class="sn">OEM 원가 (개당)</span><span class="sv" id="mk-oem-v">1,500원</span></div>
+          <div class="sl"><span class="sn">OEM 원가 (개당)</span><span class="sv" id="mk-oem-v">1,250원</span></div>
           <input type="range" id="mk-oem" min="200" max="3000" step="50" value="1250">
         </div>
         <div class="sg">
           <div class="sl"><span class="sn">자체공장 원가 (개당)</span><span class="sv" id="mk-factory-v">600원</span></div>
           <input type="range" id="mk-factory" min="100" max="1500" step="50" value="600">
-          <p class="note">OEM 대비 절감: <b id="mk-saving-pct">60%</b></p>
+          <p class="note">OEM 대비 절감: <b id="mk-saving-pct">52%</b></p>
         </div>
         <div class="sg">
           <div class="sl"><span class="sn">공장 가동 여부</span><span class="sv" id="mk-mode-v">OEM</span></div>
@@ -368,7 +371,7 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
         <hr class="div">
         <div class="panel-title">📈 성장</div>
         <div class="sg">
-          <div class="sl"><span class="sn">월 납품 성장률</span><span class="sv" id="mk-growth-v">3%</span></div>
+          <div class="sl"><span class="sn">월 납품 성장률</span><span class="sv" id="mk-growth-v">5%</span></div>
           <input type="range" id="mk-growth" min="0" max="30" step="1" value="5">
         </div>
       </div>
@@ -377,39 +380,39 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
       <div class="result-section">
         <!-- KPI -->
         <div class="kpi-grid">
-          <div class="kpi cyan"><div class="kl">월 매출</div><div class="kv" id="mk-rev-m">8,062만원</div><div class="ks" id="mk-rev-y">연간 9.7억원</div></div>
-          <div class="kpi green"><div class="kl">월 영업이익</div><div class="kv" id="mk-profit-m">3,650만원</div><div class="ks" id="mk-margin">마진율 45.3%</div></div>
-          <div class="kpi yellow"><div class="kl">개당 마진</div><div class="kv" id="mk-unit-margin">1,313원</div><div class="ks" id="mk-mode-label">OEM 기준</div></div>
-          <div class="kpi blue"><div class="kl">보유 재고 자산가치</div><div class="kv" id="mk-stock-asset">0원</div><div class="ks" id="mk-stock-months">0.0개월치 재고</div></div>
-          <div class="kpi green"><div class="kl">공장 전환 시 연 절감</div><div class="kv" id="mk-factory-save">3.0억원</div><div class="ks">원가 절감분</div></div>
+          <div class="kpi cyan"><div class="kl">월 매출</div><div class="kv" id="mk-rev-m">-</div><div class="ks" id="mk-rev-y">연간 -</div></div>
+          <div class="kpi green"><div class="kl">월 영업이익</div><div class="kv" id="mk-profit-m">-</div><div class="ks" id="mk-margin">마진율 -</div></div>
+          <div class="kpi yellow"><div class="kl">개당 마진</div><div class="kv" id="mk-unit-margin">-</div><div class="ks" id="mk-mode-label">OEM 기준</div></div>
+          <div class="kpi blue"><div class="kl">보유 재고 자산가치</div><div class="kv" id="mk-stock-asset">-</div><div class="ks" id="mk-stock-months">-개월치 재고</div></div>
+          <div class="kpi green"><div class="kl">공장 전환 시 연 절감</div><div class="kv" id="mk-factory-save">-</div><div class="ks">원가 절감분</div></div>
         </div>
 
         <!-- 수익 분해 -->
         <div class="card">
           <div class="card-title">수익 구조 분해 (월)</div>
-          <div class="row-item"><span class="row-label">납품 매출</span><span class="row-val pos" id="mk-r1">+8,062만원</span></div>
-          <div class="row-item"><span class="row-label">용기 원가 (현재)</span><span class="row-val neg" id="mk-r2">-4,170만원</span></div>
-          <div class="row-item"><span class="row-label">물류·포장비 (매출 3%)</span><span class="row-val neg" id="mk-r3">-242만원</span></div>
-          <div class="total-row"><span>월 영업이익</span><span id="mk-total" style="font-family: &quot;Space Mono&quot;, monospace; color: var(--green);">+3,650만원</span></div>
+          <div class="row-item"><span class="row-label">납품 매출</span><span class="row-val pos" id="mk-r1">-</span></div>
+          <div class="row-item"><span class="row-label">용기 원가 (현재)</span><span class="row-val neg" id="mk-r2">-</span></div>
+          <div class="row-item"><span class="row-label">물류·포장비 (매출 3%)</span><span class="row-val neg" id="mk-r3">-</span></div>
+          <div class="total-row"><span>월 영업이익</span><span id="mk-total" style="font-family:'Space Mono',monospace;">-</span></div>
         </div>
 
         <!-- OEM vs 공장 비교 -->
         <div class="card">
           <div class="card-title">OEM vs 자체공장 — 연간 비교</div>
-          <div class="row-item"><span class="row-label">OEM 기준 연 이익</span><span class="row-val" id="mk-oem-annual">4.4억원</span></div>
-          <div class="row-item"><span class="row-label">자체공장 기준 연 이익</span><span class="row-val pos" id="mk-factory-annual">7.4억원</span></div>
-          <div class="row-item"><span class="row-label">전환 시 추가 이익</span><span class="row-val pos" id="mk-delta">+3.0억원</span></div>
+          <div class="row-item"><span class="row-label">OEM 기준 연 이익</span><span class="row-val" id="mk-oem-annual">-</span></div>
+          <div class="row-item"><span class="row-label">자체공장 기준 연 이익</span><span class="row-val pos" id="mk-factory-annual">-</span></div>
+          <div class="row-item"><span class="row-label">전환 시 추가 이익</span><span class="row-val pos" id="mk-delta">-</span></div>
           <div style="margin-top:10px;">
             <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--g2);margin-bottom:3px;"><span>OEM</span><span>자체공장</span></div>
-            <div class="prog-track"><div class="prog-fill" id="mk-prog" style="background: var(--green); width: 100%;"></div></div>
+            <div class="prog-track"><div class="prog-fill" id="mk-prog" style="background:var(--green);width:50%;"></div></div>
           </div>
-          <div id="mk-ins" class="ins warn">⚠️ OEM 외주 중 — 자체공장 전환 시 연 3.0억원 추가 이익 확보 가능합니다.</div>
+          <div id="mk-ins" class="ins info"></div>
         </div>
 
         <!-- 12개월 납품 프로젝션 -->
         <div class="card">
           <div class="card-title">12개월 매출 프로젝션</div>
-          <div class="chart-wrap" style="height:200px;"><canvas id="mk-chart" role="img" aria-label="WE MAKE 12개월 매출 프로젝션" height="200" style="display: block; box-sizing: border-box; height: 200px; width: 1314px;" width="1314">매출 차트</canvas></div>
+          <div class="chart-wrap" style="height:200px;"><canvas id="mk-chart" role="img" aria-label="WE MAKE 12개월 매출 프로젝션">매출 차트</canvas></div>
         </div>
       </div>
     </div>
@@ -435,33 +438,33 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
         <!-- ══ WE OPERATE 변수 — 여기 숫자 수정 ══ -->
         <div class="panel-title">🧹 세척 설정</div>
         <div class="sg">
-          <div class="sl"><span class="sn">월 세척 건수</span><span class="sv" id="op-cnt-v">245,000건</span></div>
+          <div class="sl"><span class="sn">월 세척 건수</span><span class="sv" id="op-cnt-v">210,000건</span></div>
           <input type="range" id="op-cnt" min="1000" max="500000" step="1000" value="210000">
-          <p class="note">일 평균 <b id="op-daily">8,167</b>건</p>
+          <p class="note">일 평균 <b id="op-daily">7,000</b>건</p>
         </div>
         <div class="sg">
-          <div class="sl"><span class="sn">세척 단가 (부가세 별도)</span><span class="sv" id="op-price-v">205원</span></div>
+          <div class="sl"><span class="sn">세척 단가 (부가세 별도)</span><span class="sv" id="op-price-v">160원</span></div>
           <input type="range" id="op-price" min="100" max="400" step="5" value="160">
-          <p class="note">VAT포함 수취: <b id="op-price-vat">226원</b>/건</p>
+          <p class="note">VAT포함 수취: <b id="op-price-vat">176원</b>/건</p>
         </div>
         <div class="sg">
-          <div class="sl"><span class="sn">세척 원가 (개당)</span><span class="sv" id="op-cost-v">90원</span></div>
+          <div class="sl"><span class="sn">세척 원가 (개당)</span><span class="sv" id="op-cost-v">120원</span></div>
           <input type="range" id="op-cost" min="50" max="300" step="5" value="120">
-          <p class="note">건당 마진: <b id="op-unit-margin">136원</b></p>
+          <p class="note">건당 마진: <b id="op-unit-margin">56원</b></p>
         </div>
         <hr class="div">
         <div class="panel-title">🏢 세척장 고정비 (월)</div>
         <div class="sg">
-          <div class="sl"><span class="sn">인건비 (총)</span><span class="sv" id="op-labor-v">3000만</span></div>
+          <div class="sl"><span class="sn">인건비 (총)</span><span class="sv" id="op-labor-v">2,950만</span></div>
           <input type="range" id="op-labor" min="500000" max="100000000" step="500000" value="29500000">
         </div>
         <div class="sg">
-          <div class="sl"><span class="sn">장애인고용장려금 (월 수령)</span><span class="sv" id="op-subsidy-v">900만원</span></div>
+          <div class="sl"><span class="sn">장애인고용장려금 (월 수령)</span><span class="sv" id="op-subsidy-v">0원</span></div>
           <input type="range" id="op-subsidy" min="0" max="10000000" step="100000" value="0">
           <p class="note" style="color:#00a86b;">♿ 장애인표준사업장 — 인건비에서 차감되는 실질 지원금</p>
         </div>
         <div class="sg">
-          <div class="sl"><span class="sn">임차료·유틸리티</span><span class="sv" id="op-rent-v">1100만</span></div>
+          <div class="sl"><span class="sn">임차료·유틸리티</span><span class="sv" id="op-rent-v">650만</span></div>
           <input type="range" id="op-rent" min="500000" max="20000000" step="500000" value="6500000">
         </div>
         <div class="sg">
@@ -478,36 +481,36 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
 
       <div class="result-section">
         <div class="kpi-grid">
-          <div class="kpi cyan"><div class="kl">월 매출 (VAT포함)</div><div class="kv" id="op-rev-m">5,525만원</div><div class="ks" id="op-rev-y">연간 6.6억원</div></div>
-          <div class="kpi green"><div class="kl">월 영업이익</div><div class="kv" id="op-profit-m">-2,500원</div><div class="ks" id="op-margin">마진율 -0.0%</div></div>
-          <div class="kpi yellow"><div class="kl">건당 마진</div><div class="kv" id="op-unit-m">136원</div><div class="ks">세척 1건당</div></div>
-          <div class="kpi blue"><div class="kl">BEP 세척건수</div><div class="kv" id="op-bep">245,019건</div><div class="ks">월 손익분기</div></div>
+          <div class="kpi cyan"><div class="kl">월 매출 (VAT포함)</div><div class="kv" id="op-rev-m">-</div><div class="ks" id="op-rev-y">연간 -</div></div>
+          <div class="kpi green"><div class="kl">월 영업이익</div><div class="kv" id="op-profit-m">-</div><div class="ks" id="op-margin">마진율 -</div></div>
+          <div class="kpi yellow"><div class="kl">건당 마진</div><div class="kv" id="op-unit-m">-</div><div class="ks">세척 1건당</div></div>
+          <div class="kpi blue"><div class="kl">BEP 세척건수</div><div class="kv" id="op-bep">-</div><div class="ks">월 손익분기</div></div>
         </div>
 
         <div class="card">
           <div class="card-title">수익 구조 분해 (월)</div>
-          <div class="row-item"><span class="row-label">세척 매출 (VAT포함)</span><span class="row-val pos" id="op-r1">+5,525만원</span></div>
-          <div class="row-item"><span class="row-label">세척 원가</span><span class="row-val neg" id="op-r2">-2,205만원</span></div>
-          <div class="row-item"><span class="row-label">인건비</span><span class="row-val neg" id="op-r3">-3,000만원</span></div>
+          <div class="row-item"><span class="row-label">세척 매출 (VAT포함)</span><span class="row-val pos" id="op-r1">-</span></div>
+          <div class="row-item"><span class="row-label">세척 원가</span><span class="row-val neg" id="op-r2">-</span></div>
+          <div class="row-item"><span class="row-label">인건비</span><span class="row-val neg" id="op-r3">-</span></div>
           <div class="row-item" style="background:rgba(0,168,107,0.05);">
             <span class="row-label" style="color:#00a86b;">♿ 장애인고용장려금 (수령)</span>
-            <span class="row-val pos" id="op-r-subsidy">+900만원</span>
+            <span class="row-val pos" id="op-r-subsidy">-</span>
           </div>
-          <div class="row-item"><span class="row-label">임차료·유틸리티</span><span class="row-val neg" id="op-r4">-1,100만원</span></div>
-          <div class="row-item"><span class="row-label">장비 감가상각</span><span class="row-val neg" id="op-r5">-120만원</span></div>
-          <div class="total-row"><span>월 영업이익</span><span id="op-total" style="font-family: &quot;Space Mono&quot;, monospace; color: var(--red);">-2,500원</span></div>
+          <div class="row-item"><span class="row-label">임차료·유틸리티</span><span class="row-val neg" id="op-r4">-</span></div>
+          <div class="row-item"><span class="row-label">장비 감가상각</span><span class="row-val neg" id="op-r5">-</span></div>
+          <div class="total-row"><span>월 영업이익</span><span id="op-total" style="font-family:'Space Mono',monospace;">-</span></div>
         </div>
 
         <div class="card">
           <div class="card-title">BEP 달성 현황</div>
           <div style="font-size:11px;color:var(--g1);margin-bottom:6px;">현재 세척건수 vs BEP 건수</div>
-          <div class="prog-track"><div class="prog-fill" id="op-bep-prog" style="background: var(--cyan); width: 99.9922%;"></div></div>
-          <div id="op-ins" class="ins warn" style="margin-top:8px;">⚠️ 적자 중 — BEP까지 월 19건 추가 필요합니다.</div>
+          <div class="prog-track"><div class="prog-fill" id="op-bep-prog" style="background:var(--cyan);width:0%;"></div></div>
+          <div id="op-ins" class="ins info" style="margin-top:8px;"></div>
         </div>
 
         <div class="card">
           <div class="card-title">12개월 세척 매출 프로젝션</div>
-          <div class="chart-wrap" style="height:200px;"><canvas id="op-chart" role="img" aria-label="WE OPERATE 12개월 프로젝션" height="200" style="display: block; box-sizing: border-box; height: 200px; width: 1314px;" width="1314">세척 차트</canvas></div>
+          <div class="chart-wrap" style="height:200px;"><canvas id="op-chart" role="img" aria-label="WE OPERATE 12개월 프로젝션">세척 차트</canvas></div>
         </div>
       </div>
     </div>
@@ -516,7 +519,7 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
   <!-- ════════════════════════
        TAB 3: WE CONNECT (아란테 앱)
   ════════════════════════ -->
-  <div id="tab-connect" class="tab-content active">
+  <div id="tab-connect" class="tab-content">
     <div class="tab-header">
       <h2>📱 WE CONNECT — 아란테 앱 SaaS</h2>
       <p>가맹점 구독료 + PG 수수료 — 가맹점 수 증가에 따른 반복 매출</p>
@@ -533,7 +536,7 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
         <!-- ══ WE CONNECT 변수 — 여기 숫자 수정 ══ -->
         <div class="panel-title">🏪 가맹점</div>
         <div class="sg">
-          <div class="sl"><span class="sn">현재 프로 가맹점</span><span class="sv" id="cn-pro-v">0개</span></div>
+          <div class="sl"><span class="sn">현재 프로 가맹점</span><span class="sv" id="cn-pro-v">200개</span></div>
           <input type="range" id="cn-pro" min="0" max="100000" step="100" value="200">
           <!-- TAM 바 -->
           <div style="margin-top:6px;">
@@ -544,53 +547,72 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
               <div style="position:absolute;left:0;top:0;height:100%;width:100%;background:rgba(0,168,107,.15);"></div>
               <div style="position:absolute;left:0;top:0;height:100%;width:30%;background:rgba(230,168,0,.2);border-right:2px dashed var(--yellow);"></div>
               <div style="position:absolute;left:0;top:0;height:100%;width:3%;background:rgba(0,153,187,.3);border-right:2px dashed var(--cyan);"></div>
-              <div id="cn-tam-fill" style="position: absolute; left: 0px; top: 0px; height: 100%; width: 0.2%; background: var(--cyan); border-radius: 4px; transition: width 0.3s;"></div>
+              <div id="cn-tam-fill" style="position:absolute;left:0;top:0;height:100%;width:0.2%;background:var(--cyan);border-radius:4px;transition:width .3s;"></div>
             </div>
-            <div style="font-size:10px;color:var(--g1);margin-top:2px;">TAM 점유율: <b id="cn-tam-pct" style="color:var(--cyan);">0.00%</b></div>
+            <div style="font-size:10px;color:var(--g1);margin-top:2px;">TAM 점유율: <b id="cn-tam-pct" style="color:var(--cyan);">0.2%</b></div>
           </div>
         </div>
         <div class="sg">
-          <div class="sl"><span class="sn">현재 베이직 가맹점</span><span class="sv" id="cn-bas-v">0개</span></div>
+          <div class="sl"><span class="sn">현재 베이직 가맹점</span><span class="sv" id="cn-bas-v">50개</span></div>
           <input type="range" id="cn-bas" min="0" max="50000" step="100" value="50">
         </div>
         <div class="sg">
-          <div class="sl"><span class="sn">월 신규 가맹점</span><span class="sv" id="cn-new-v">5개</span></div>
+          <div class="sl"><span class="sn">월 신규 가맹점</span><span class="sv" id="cn-new-v">10개</span></div>
           <input type="range" id="cn-new" min="1" max="500" step="1" value="10">
         </div>
         <div class="sg">
-          <div class="sl"><span class="sn">월 이탈률</span><span class="sv" id="cn-churn-v">0%</span></div>
+          <div class="sl"><span class="sn">월 이탈률</span><span class="sv" id="cn-churn-v">5%</span></div>
           <input type="range" id="cn-churn" min="0" max="20" step="1" value="5">
         </div>
         <hr class="div">
-        <div class="panel-title">💰 단가</div>
+        <div class="panel-title">💰 단가 · 수수료</div>
         <div class="sg">
           <div class="sl"><span class="sn">월 구독료 (부가세 별도)</span><span class="sv" id="cn-sub-v">49,000원</span></div>
           <input type="range" id="cn-sub" min="29000" max="99000" step="1000" value="49000">
           <p class="note">VAT포함: <b id="cn-sub-vat">53,900원</b></p>
         </div>
         <div class="sg">
-          <div class="sl"><span class="sn">가맹점당 일 주문건수</span><span class="sv" id="cn-daily-v">50건</span></div>
+          <div class="sl"><span class="sn">가맹점당 일 주문건수</span><span class="sv" id="cn-daily-v">100건</span></div>
           <input type="range" id="cn-daily" min="10" max="500" step="10" value="100">
         </div>
         <div class="sg">
-          <div class="sl"><span class="sn">다회용컵 비율 (프로)</span><span class="sv" id="cn-rcup-v">30%</span></div>
+          <div class="sl"><span class="sn">다회용컵 비율 (프로)</span><span class="sv" id="cn-rcup-v">60%</span></div>
           <input type="range" id="cn-rcup" min="0" max="100" step="5" value="60">
         </div>
         <div class="sg">
-          <div class="sl"><span class="sn">음료 평균 단가</span><span class="sv" id="cn-price-v">4,000원</span></div>
+          <div class="sl"><span class="sn">음료 평균 단가</span><span class="sv" id="cn-price-v">4,500원</span></div>
           <input type="range" id="cn-price" min="2000" max="8000" step="100" value="4500">
         </div>
         <div class="sg">
-          <div class="sl"><span class="sn">PG 수수료율</span><span class="sv" id="cn-pg-v">2.0%</span></div>
-          <input type="range" id="cn-pg" min="0.5" max="5" step="0.1" value="2.0">
+          <div class="sl">
+            <span class="sn">중개 수수료율 <span style="font-size:9px;background:rgba(0,168,107,0.15);color:var(--green);padding:1px 5px;border-radius:4px;">받는 것</span></span>
+            <span class="sv" id="cn-commission-v">2.0%</span>
+          </div>
+          <input type="range" id="cn-commission" min="0.5" max="10" step="0.1" value="2.0">
+          <p class="note" style="color:var(--green);">가맹점 주문 금액의 일정 % — 아란테가 수취하는 수익</p>
         </div>
+        <div class="sg">
+          <div class="sl">
+            <span class="sn">PG사 수수료율 <span style="font-size:9px;background:rgba(224,48,48,0.12);color:var(--red);padding:1px 5px;border-radius:4px;">내는 것</span></span>
+            <span class="sv" id="cn-pg-v">1.2%</span>
+          </div>
+          <input type="range" id="cn-pg" min="0.5" max="5" step="0.1" value="1.2">
+          <p class="note" style="color:var(--red);">PG사에 지급하는 비용 — 중개수수료에서 차감</p>
+        </div>
+        <hr class="div">
+        <div class="panel-title">🧹 세척 수익 (프로 전용)</div>
         <div class="sg">
           <div class="sl"><span class="sn">세척 단가 수취 (부가세 별도)</span><span class="sv" id="cn-wash-v">190원</span></div>
           <input type="range" id="cn-wash" min="100" max="400" step="5" value="190">
+          <p class="note">가맹점에게 청구하는 세척 단가</p>
         </div>
         <div class="sg">
-          <div class="sl"><span class="sn">세척 원가</span><span class="sv" id="cn-wc-v">150원</span></div>
+          <div class="sl">
+            <span class="sn">세척업체 지급 원가 <span style="font-size:9px;background:rgba(224,48,48,0.12);color:var(--red);padding:1px 5px;border-radius:4px;">내는 것</span></span>
+            <span class="sv" id="cn-wc-v">150원</span>
+          </div>
           <input type="range" id="cn-wc" min="50" max="300" step="5" value="150">
+          <p class="note" style="color:var(--red);">타사 세척업체에 지급하는 비용 (건당)</p>
         </div>
         <hr class="div">
         <div class="panel-title">🏢 본사 배분</div>
@@ -603,41 +625,39 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
 
       <div class="result-section">
         <div class="kpi-grid">
-          <div class="kpi cyan"><div class="kl">월 MRR</div><div class="kv" id="cn-mrr">0원</div><div class="ks" id="cn-arr">연 ARR 0원</div></div>
-          <div class="kpi green"><div class="kl">월 영업이익</div><div class="kv" id="cn-profit">0원</div><div class="ks" id="cn-margin">순매출 기준</div></div>
-          <div class="kpi yellow"><div class="kl">LTV/CAC</div><div class="kv" id="cn-ltvcac">0.0x</div><div class="ks">CAC 80만원 기준</div></div>
-          <div class="kpi blue"><div class="kl">18개월 후 ARR</div><div class="kv" id="cn-arr18">1.7억원</div><div class="ks" id="cn-stores18">가맹점 90개</div></div>
+          <div class="kpi cyan"><div class="kl">월 MRR</div><div class="kv" id="cn-mrr">-</div><div class="ks" id="cn-arr">연 ARR -</div></div>
+          <div class="kpi green"><div class="kl">월 영업이익</div><div class="kv" id="cn-profit">-</div><div class="ks" id="cn-margin">마진율 -</div></div>
+          <div class="kpi yellow"><div class="kl">LTV/CAC</div><div class="kv" id="cn-ltvcac">-</div><div class="ks">CAC 80만원 기준</div></div>
+          <div class="kpi blue"><div class="kl">18개월 후 ARR</div><div class="kv" id="cn-arr18">-</div><div class="ks" id="cn-stores18">가맹점 -개</div></div>
         </div>
 
         <div class="card">
-          <div class="card-title">가맹점당 월 수익 분해 (프로)</div>
-          <div class="row-item"><span class="row-label">구독료 수취 (VAT포함)</span><span class="row-val pos" id="cn-r1">+53,900원</span></div>
-          <div class="row-item"><span class="row-label">세척 마진</span><span class="row-val pos" id="cn-r2">+26,550원</span></div>
-          <div class="row-item"><span class="row-label">PG 수수료</span><span class="row-val pos" id="cn-r3">+84,000원</span></div>
-          <div class="row-item"><span class="row-label">본사 배분</span><span class="row-val neg" id="cn-r4">-8,085원</span></div>
-          <div class="total-row"><span>가맹점당 순익</span><span id="cn-unit" style="font-family: &quot;Space Mono&quot;, monospace; color: var(--green);">+16만원</span></div>
+          <div class="card-title">가맹점당 월 수익 분해 (프로 기준)</div>
+          <div class="row-item"><span class="row-label">① 구독료 수취 (VAT포함)</span><span class="row-val pos" id="cn-r1">-</span></div>
+          <div class="row-item"><span class="row-label">② 세척 수취 - 업체 지급 마진</span><span class="row-val pos" id="cn-r2">-</span></div>
+          <div class="row-item" style="background:rgba(0,168,107,0.04);">
+            <span class="row-label">③ 중개 수수료 수취 <span style="font-size:9px;color:var(--green);">받는 것</span></span>
+            <span class="row-val pos" id="cn-r3">-</span>
+          </div>
+          <div class="row-item" style="background:rgba(224,48,48,0.04);">
+            <span class="row-label">④ PG사 수수료 지급 <span style="font-size:9px;color:var(--red);">내는 것</span></span>
+            <span class="row-val neg" id="cn-r-pg">-</span>
+          </div>
+          <div class="row-item"><span class="row-label">⑤ 본사 배분</span><span class="row-val neg" id="cn-r4">-</span></div>
+          <div class="total-row"><span>가맹점당 순익</span><span id="cn-unit" style="font-family:'Space Mono',monospace;">-</span></div>
+          <div style="margin-top:8px;font-size:10px;color:var(--g2);">
+            순매출 = 중개수수료 수취 - PG사 지급 = <b id="cn-net-commission" style="color:var(--cyan);">-</b>
+          </div>
         </div>
 
         <div class="card">
           <div class="card-title">TAM/SAM/SOM 달성 시 ARR</div>
-          <div id="cn-tam-cards" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:4px;"><div style="background:var(--bg3);border-radius:8px;padding:10px;text-align:center;border:1px solid var(--bdr);">
-      <div style="font-size:9px;color:var(--g1);margin-bottom:3px;">SOM 달성</div>
-      <div style="font-size:12px;font-weight:900;color:var(--cyan);">3,000개</div>
-      <div style="font-size:11px;font-weight:700;color:var(--cyan);">ARR 0원</div>
-    </div><div style="background:var(--bg3);border-radius:8px;padding:10px;text-align:center;border:1px solid var(--bdr);">
-      <div style="font-size:9px;color:var(--g1);margin-bottom:3px;">SAM 달성</div>
-      <div style="font-size:12px;font-weight:900;color:var(--yellow);">30,000개</div>
-      <div style="font-size:11px;font-weight:700;color:var(--yellow);">ARR 0원</div>
-    </div><div style="background:var(--bg3);border-radius:8px;padding:10px;text-align:center;border:1px solid var(--bdr);">
-      <div style="font-size:9px;color:var(--g1);margin-bottom:3px;">TAM 달성</div>
-      <div style="font-size:12px;font-weight:900;color:var(--green);">100,000개</div>
-      <div style="font-size:11px;font-weight:700;color:var(--green);">ARR 0원</div>
-    </div></div>
+          <div id="cn-tam-cards" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:4px;"></div>
         </div>
 
         <div class="card">
           <div class="card-title">18개월 ARR 프로젝션</div>
-          <div class="chart-wrap" style="height:220px;"><canvas id="cn-chart" role="img" aria-label="WE CONNECT ARR 프로젝션" height="220" style="display: block; box-sizing: border-box; height: 220px; width: 1314px;" width="1314">ARR 차트</canvas></div>
+          <div class="chart-wrap" style="height:220px;"><canvas id="cn-chart" role="img" aria-label="WE CONNECT ARR 프로젝션">ARR 차트</canvas></div>
         </div>
       </div>
     </div>
@@ -661,7 +681,7 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
   <!-- ════════════════════════
        TAB 5: 통합 대시보드
   ════════════════════════ -->
-  <div id="tab-dashboard" class="tab-content">
+  <div id="tab-dashboard" class="tab-content active">
     <div class="tab-header">
       <h2>📊 통합 대시보드 — 3개 사업 합산</h2>
       <p>WE MAKE + WE OPERATE + WE CONNECT — 현재 각 탭 설정값 기준 실시간 합산</p>
@@ -671,22 +691,22 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
     <div class="dashboard-grid" style="margin-bottom:20px;">
       <div class="dash-card" style="border-top:3px solid var(--cyan);">
         <div class="dash-label">합산 월 매출</div>
-        <div class="dash-val" id="db-rev" style="color:var(--cyan);">1.4억원</div>
-        <div class="dash-sub" id="db-rev-y">연 ARR 16.3억원</div>
+        <div class="dash-val" id="db-rev" style="color:var(--cyan);">-</div>
+        <div class="dash-sub" id="db-rev-y">연 ARR -</div>
       </div>
       <div class="dash-card" style="border-top:3px solid var(--green);">
         <div class="dash-label">합산 월 영업이익</div>
-        <div class="dash-val" id="db-profit" style="color:var(--green);">3,650만원</div>
-        <div class="dash-sub" id="db-margin">영업이익률 26.9%</div>
+        <div class="dash-val" id="db-profit" style="color:var(--green);">-</div>
+        <div class="dash-sub" id="db-margin">영업이익률 -</div>
       </div>
       <div class="dash-card" style="border-top:3px solid var(--yellow);">
         <div class="dash-label">연간 EBITDA 추정</div>
-        <div class="dash-val" id="db-ebitda" style="color:var(--yellow);">4.5억원</div>
+        <div class="dash-val" id="db-ebitda" style="color:var(--yellow);">-</div>
         <div class="dash-sub">감가상각 가산</div>
       </div>
       <div class="dash-card" style="border-top:3px solid var(--blue);">
         <div class="dash-label">100억 달성까지</div>
-        <div class="dash-val" id="db-target" style="color:var(--blue);">83.7억원</div>
+        <div class="dash-val" id="db-target" style="color:var(--blue);">-</div>
         <div class="dash-sub">현재 ARR 대비</div>
       </div>
     </div>
@@ -694,24 +714,8 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
     <!-- 사업별 기여 -->
     <div class="card" style="margin-bottom:14px;">
       <div class="card-title">사업별 월 매출 기여</div>
-      <div id="db-breakdown" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px;"><div style="background:var(--bg3);border-radius:8px;padding:12px;border:1px solid var(--bdr);">
-      <div style="font-size:9px;color:var(--g1);margin-bottom:4px;">WE MAKE</div>
-      <div style="font-size:15px;font-weight:900;color:var(--cyan);">8,062만원</div>
-      <div style="font-size:10px;color:var(--g2);">전체 59.3%</div>
-    </div><div style="background:var(--bg3);border-radius:8px;padding:12px;border:1px solid var(--bdr);">
-      <div style="font-size:9px;color:var(--g1);margin-bottom:4px;">WE OPERATE</div>
-      <div style="font-size:15px;font-weight:900;color:var(--green);">5,525만원</div>
-      <div style="font-size:10px;color:var(--g2);">전체 40.7%</div>
-    </div><div style="background:var(--bg3);border-radius:8px;padding:12px;border:1px solid var(--bdr);">
-      <div style="font-size:9px;color:var(--g1);margin-bottom:4px;">WE CONNECT</div>
-      <div style="font-size:15px;font-weight:900;color:#534AB7;">0원</div>
-      <div style="font-size:10px;color:var(--g2);">전체 0.0%</div>
-    </div><div style="background:var(--bg3);border-radius:8px;padding:12px;border:1px solid var(--bdr);">
-      <div style="font-size:9px;color:var(--g1);margin-bottom:4px;">프랜차이즈 세척장</div>
-      <div style="font-size:15px;font-weight:900;color:var(--yellow);">0원</div>
-      <div style="font-size:10px;color:var(--g2);">전체 0.0%</div>
-    </div></div>
-      <div class="chart-wrap" style="height:220px;"><canvas id="db-chart" role="img" aria-label="사업별 매출 기여 차트" width="1630" height="220" style="display: block; box-sizing: border-box; height: 220px; width: 1630px;">통합 차트</canvas></div>
+      <div id="db-breakdown" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px;"></div>
+      <div class="chart-wrap" style="height:220px;"><canvas id="db-chart" role="img" aria-label="사업별 매출 기여 차트">통합 차트</canvas></div>
     </div>
 
     <!-- 3개년 프로젝션 -->
@@ -727,37 +731,7 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
               <th style="text-align:right;padding:8px;color:var(--green);font-weight:700;">2027E</th>
             </tr>
           </thead>
-          <tbody id="db-table-body">
-    <tr style="border-bottom:1px solid var(--bdr);font-weight:700;">
-      <td style="padding:8px;color:var(--g1);font-size:12px;">매출액</td>
-      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;">16.3억원</td>
-      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;color:var(--cyan);">32.6억원</td>
-      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;color:var(--green);">65.2억원</td>
-    </tr>
-    <tr style="border-bottom:1px solid var(--bdr);">
-      <td style="padding:8px;color:var(--g1);font-size:12px;">성장률</td>
-      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;">현재</td>
-      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;color:var(--cyan);">+100%</td>
-      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;color:var(--green);">+100%</td>
-    </tr>
-    <tr style="border-bottom:1px solid var(--bdr);">
-      <td style="padding:8px;color:var(--g1);font-size:12px;">영업이익</td>
-      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;">4.4억원</td>
-      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;color:var(--cyan);">8.8억원</td>
-      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;color:var(--green);">17.5억원</td>
-    </tr>
-    <tr style="border-bottom:1px solid var(--bdr);">
-      <td style="padding:8px;color:var(--g1);font-size:12px;">영업이익률</td>
-      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;">26.9%</td>
-      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;color:var(--cyan);">29.9%</td>
-      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;color:var(--green);">32.9%</td>
-    </tr>
-    <tr style="border-bottom:1px solid var(--bdr);">
-      <td style="padding:8px;color:var(--g1);font-size:12px;">EBITDA</td>
-      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;">4.5억원</td>
-      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;color:var(--cyan);">9.0억원</td>
-      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;color:var(--green);">18.1억원</td>
-    </tr></tbody>
+          <tbody id="db-table-body"></tbody>
         </table>
       </div>
     </div>
@@ -768,32 +742,20 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
         <div class="card-title">⏱ 흑자전환 카운트다운</div>
         <div style="text-align:center;padding:16px 0;">
           <div style="font-size:11px;color:var(--g1);margin-bottom:6px;">흑자 전환까지</div>
-          <div id="db-bep-cd" style="font-size:48px;font-weight:900;color:var(--green);font-family:'Space Mono',monospace;">1</div>
-          <div id="db-bep-label" style="font-size:13px;color:var(--g1);margin-top:4px;">개월 후 흑자 전환</div>
-          <div id="db-bep-date" style="font-size:11px;color:var(--g2);margin-top:4px;">2026년 6월 예상</div>
+          <div id="db-bep-cd" style="font-size:48px;font-weight:900;color:var(--green);font-family:'Space Mono',monospace;">-</div>
+          <div id="db-bep-label" style="font-size:13px;color:var(--g1);margin-top:4px;">개월</div>
+          <div id="db-bep-date" style="font-size:11px;color:var(--g2);margin-top:4px;">-</div>
         </div>
-        <div class="chart-wrap" style="height:150px;"><canvas id="db-bep-chart" role="img" aria-label="누적 손익 BEP 차트" width="791" height="150" style="display: block; box-sizing: border-box; height: 150px; width: 791px;">BEP 차트</canvas></div>
+        <div class="chart-wrap" style="height:150px;"><canvas id="db-bep-chart" role="img" aria-label="누적 손익 BEP 차트">BEP 차트</canvas></div>
       </div>
       <div class="card">
         <div class="card-title">💰 투자금 ROI</div>
         <div style="margin-bottom:12px;">
-          <div class="sl"><span class="sn">투자 유치 금액</span><span class="sv" id="db-invest-v">20.0억원</span></div>
+          <div class="sl"><span class="sn">투자 유치 금액</span><span class="sv" id="db-invest-v">5억원</span></div>
           <input type="range" id="db-invest" min="50000000" max="5000000000" step="50000000" value="500000000" style="width:100%;margin-top:4px;">
         </div>
-        <div id="db-roi-cards" style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;"><div style="background:var(--bg3);border-radius:8px;padding:10px;text-align:center;border:1px solid var(--bdr);">
-    <div style="font-size:9px;color:var(--g1);margin-bottom:3px;">투자금</div>
-    <div style="font-size:14px;font-weight:900;color:var(--blue);">20.0억원</div>
-  </div><div style="background:var(--bg3);border-radius:8px;padding:10px;text-align:center;border:1px solid var(--bdr);">
-    <div style="font-size:9px;color:var(--g1);margin-bottom:3px;">월 영업이익</div>
-    <div style="font-size:14px;font-weight:900;color:var(--green);">3,650만원</div>
-  </div><div style="background:var(--bg3);border-radius:8px;padding:10px;text-align:center;border:1px solid var(--bdr);">
-    <div style="font-size:9px;color:var(--g1);margin-bottom:3px;">투자 회수</div>
-    <div style="font-size:14px;font-weight:900;color:var(--yellow);">55개월</div>
-  </div><div style="background:var(--bg3);border-radius:8px;padding:10px;text-align:center;border:1px solid var(--bdr);">
-    <div style="font-size:9px;color:var(--g1);margin-bottom:3px;">ARR/투자금</div>
-    <div style="font-size:14px;font-weight:900;color:var(--cyan);">0.8x</div>
-  </div></div>
-        <div id="db-roi-ins" class="ins info" style="margin-top:8px;">💡 현재 이익률 기준 투자 회수에 55개월이 소요됩니다. 가맹점 확대로 단축 가능합니다.</div>
+        <div id="db-roi-cards" style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;"></div>
+        <div id="db-roi-ins" class="ins info" style="margin-top:8px;"></div>
       </div>
     </div>
   </div>
@@ -847,7 +809,7 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
 const ALL_SLIDER_IDS = [
   'mk-stock','mk-qty','mk-price','mk-oem','mk-factory','mk-mode','mk-growth',
   'op-cnt','op-price','op-cost','op-labor','op-subsidy','op-rent','op-dep','op-growth',
-  'cn-pro','cn-bas','cn-new','cn-churn','cn-sub','cn-daily','cn-rcup','cn-price','cn-pg','cn-wash','cn-wc','cn-hq',
+  'cn-pro','cn-bas','cn-new','cn-churn','cn-sub','cn-daily','cn-rcup','cn-price','cn-commission','cn-pg','cn-wash','cn-wc','cn-hq',
   'db-invest'
 ];
 
@@ -876,7 +838,7 @@ function buildSaveURL(){
   return base + '?' + params.toString();
 }
 
-/* ── GitHub 자동 저장 ── */
+/* ── GitHub 자동 저장 (config.json에만 저장) ── */
 async function saveToGitHub(){
   const token = document.getElementById('gh-token').value.trim();
   if(!token){
@@ -886,51 +848,42 @@ async function saveToGitHub(){
 
   const OWNER = 'heejinchoi-dev';
   const REPO  = 'circular-simulator';
-  const PATH  = 'index.html';
+  const PATH  = 'config.json';
 
   showToast('⏳ GitHub에 저장 중...');
 
   try {
-    // 1. 현재 파일 SHA 가져오기
-    const metaRes = await fetch(
-      `https://api.github.com/repos/${OWNER}/${REPO}/contents/${PATH}`,
-      { headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' }}
-    );
-    if(!metaRes.ok) throw new Error('파일 정보를 가져올 수 없습니다. 토큰을 확인해주세요.');
-    const meta = await metaRes.json();
-    const sha  = meta.sha;
-
-    // 2. 현재 HTML에 URL 파라미터 기본값 삽입
-    const params = new URLSearchParams();
+    // 현재 슬라이더 값 수집
+    const config = {};
     ALL_SLIDER_IDS.forEach(id => {
       const el = document.getElementById(id);
-      if(el) params.set(id, el.value);
+      if(el) config[id] = el.value;
     });
-    const paramStr = params.toString();
+    config['_saved_at'] = new Date().toLocaleString('ko-KR');
 
-    // 현재 페이지 HTML 가져오기
-    const currentHTML = document.documentElement.outerHTML;
+    const newContent = JSON.stringify(config, null, 2);
+    const encoded    = btoa(unescape(encodeURIComponent(newContent)));
 
-    // 기존 기본값 스크립트 제거 후 새걸로 교체
-    const marker = '/* __SAVED_DEFAULTS__ */
-(function(){
-  if(!window.location.search){
-    var p = '?mk-stock=0&mk-qty=27800&mk-price=2900&mk-oem=1500&mk-factory=600&mk-mode=0&mk-growth=3&op-cnt=245000&op-price=205&op-cost=90&op-labor=30000000&op-subsidy=9000000&op-rent=11000000&op-dep=1200000&op-growth=5&cn-pro=0&cn-bas=0&cn-new=5&cn-churn=0&cn-sub=49000&cn-daily=50&cn-rcup=30&cn-price=4000&cn-pg=2&cn-wash=190&cn-wc=150&cn-hq=15&db-invest=2000000000';
-    window.history.replaceState({}, '', p);
-  }
-})();`;
+    // 기존 config.json SHA 조회 (없으면 신규 생성)
+    let sha = null;
+    try {
+      const metaRes = await fetch(
+        `https://api.github.com/repos/${OWNER}/${REPO}/contents/${PATH}`,
+        { headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' }}
+      );
+      if(metaRes.ok){
+        const meta = await metaRes.json();
+        sha = meta.sha;
+      }
+    } catch(e){ /* 파일 없으면 신규 생성 */ }
 
-    let updatedHTML;
-    if(currentHTML.includes(marker)){
-      // 기존 저장값 교체
-      updatedHTML = currentHTML.replace(/\/\* __SAVED_DEFAULTS__ \*\/[\s\S]*?\}\)\(\);/, newScript);
-    } else {
-      // 처음 저장 - </head> 앞에 삽입
-      updatedHTML = currentHTML.replace('</head>', `<script>${newScript}<\/script>\n</head>`);
-    }
+    // config.json 업로드
+    const body = {
+      message: '⚙️ 기본값 업데이트 ' + new Date().toLocaleString('ko-KR'),
+      content: encoded
+    };
+    if(sha) body.sha = sha;
 
-    // 3. GitHub에 업로드
-    const content = btoa(unescape(encodeURIComponent(updatedHTML)));
     const pushRes = await fetch(
       `https://api.github.com/repos/${OWNER}/${REPO}/contents/${PATH}`,
       {
@@ -940,11 +893,7 @@ async function saveToGitHub(){
           Accept: 'application/vnd.github.v3+json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          message: '✅ 관리자 기본값 업데이트 ' + new Date().toLocaleString('ko-KR'),
-          content: content,
-          sha: sha
-        })
+        body: JSON.stringify(body)
       }
     );
 
@@ -953,10 +902,33 @@ async function saveToGitHub(){
       throw new Error(err.message || '저장 실패');
     }
 
-    showToast('✅ GitHub 저장 완료! 30초 후 반영됩니다.');
+    showToast('✅ 저장 완료! 30초 후 모든 접속자에게 반영됩니다.');
 
   } catch(e) {
     showToast('❌ 오류: ' + e.message);
+  }
+}
+
+/* ── 페이지 로드 시 config.json에서 기본값 불러오기 ── */
+async function loadConfig(){
+  const OWNER = 'heejinchoi-dev';
+  const REPO  = 'circular-simulator';
+  // GitHub raw content로 바로 읽기 (캐시 방지)
+  const url = `https://raw.githubusercontent.com/${OWNER}/${REPO}/main/config.json?t=${Date.now()}`;
+  try {
+    const res = await fetch(url);
+    if(!res.ok) return false;
+    const config = await res.json();
+    let loaded = false;
+    ALL_SLIDER_IDS.forEach(id => {
+      if(config[id] !== undefined){
+        const el = document.getElementById(id);
+        if(el){ el.value = config[id]; loaded = true; }
+      }
+    });
+    return loaded;
+  } catch(e){
+    return false;
   }
 }
 
@@ -987,8 +959,11 @@ function tryLogin(){
       document.getElementById('admin-bar').classList.add('show');
     }
     initAllCharts();
-    loadFromURL();   // URL 파라미터 있으면 먼저 로드
-    calcAll();
+    // config.json → URL 파라미터 순으로 기본값 로드
+    loadConfig().then(function(){
+      loadFromURL();
+      calcAll();
+    });
   } else {
     const box = document.getElementById('login-box');
     document.getElementById('login-error').textContent = '비밀번호가 올바르지 않습니다.';
@@ -1340,9 +1315,9 @@ function calcOperate(){
 ════════════════════════════════ */
 // ══ WE CONNECT 시나리오 값 ══
 const CONNECT_SCENARIOS = {
-  conservative: { 'cn-pro':100,'cn-bas':30,'cn-new':5, 'cn-churn':8, 'cn-sub':49000,'cn-daily':80, 'cn-rcup':50,'cn-price':4500,'cn-pg':2.0,'cn-wash':190,'cn-wc':150,'cn-hq':15 },
-  base:         { 'cn-pro':200,'cn-bas':50,'cn-new':10,'cn-churn':5, 'cn-sub':49000,'cn-daily':100,'cn-rcup':60,'cn-price':4500,'cn-pg':2.0,'cn-wash':190,'cn-wc':150,'cn-hq':15 },
-  aggressive:   { 'cn-pro':400,'cn-bas':100,'cn-new':25,'cn-churn':3,'cn-sub':49000,'cn-daily':120,'cn-rcup':70,'cn-price':4500,'cn-pg':2.0,'cn-wash':190,'cn-wc':120,'cn-hq':15 }
+  conservative: { 'cn-pro':100,'cn-bas':30,'cn-new':5, 'cn-churn':8, 'cn-sub':49000,'cn-daily':80, 'cn-rcup':50,'cn-price':4500,'cn-commission':2.0,'cn-pg':1.2,'cn-wash':190,'cn-wc':150,'cn-hq':15 },
+  base:         { 'cn-pro':200,'cn-bas':50,'cn-new':10,'cn-churn':5, 'cn-sub':49000,'cn-daily':100,'cn-rcup':60,'cn-price':4500,'cn-commission':2.0,'cn-pg':1.2,'cn-wash':190,'cn-wc':150,'cn-hq':15 },
+  aggressive:   { 'cn-pro':400,'cn-bas':100,'cn-new':25,'cn-churn':3,'cn-sub':49000,'cn-daily':120,'cn-rcup':70,'cn-price':4500,'cn-commission':2.0,'cn-pg':1.2,'cn-wash':190,'cn-wc':120,'cn-hq':15 }
 };
 function setConnectScenario(type){
   Object.entries(CONNECT_SCENARIOS[type]).forEach(([id,v])=>{ $(id).value=v; });
@@ -1352,73 +1327,91 @@ function setConnectScenario(type){
 }
 
 function calcConnect(){
-  const pro    = gv('cn-pro');
-  const bas    = gv('cn-bas');
-  const newM   = gv('cn-new');
-  const churnR = gv('cn-churn')/100;
-  const sub    = gv('cn-sub');
-  const subV   = sub*1.1;
-  const daily  = gv('cn-daily');
-  const rcup   = gv('cn-rcup')/100;
-  const price  = gv('cn-price');
-  const pgR    = gv('cn-pg')/100;
-  const wash   = gv('cn-wash');
-  const washV  = wash*1.1;
-  const wc     = gv('cn-wc');
-  const hqR    = gv('cn-hq')/100;
+  const pro         = gv('cn-pro');
+  const bas         = gv('cn-bas');
+  const newM        = gv('cn-new');
+  const churnR      = gv('cn-churn')/100;
+  const sub         = gv('cn-sub');
+  const subV        = sub*1.1;
+  const daily       = gv('cn-daily');
+  const rcup        = gv('cn-rcup')/100;
+  const price       = gv('cn-price');
+  const commissionR = gv('cn-commission')/100;  // 중개수수료 (받는 것)
+  const pgR         = gv('cn-pg')/100;           // PG사 수수료 (내는 것)
+  const wash        = gv('cn-wash');
+  const washV       = wash*1.1;
+  const wc          = gv('cn-wc');               // 세척업체 지급 원가
+  const hqR         = gv('cn-hq')/100;
 
-  const monthly = daily*30;
-  const cupCnt  = Math.round(monthly*rcup);
-  const nonCnt  = monthly-cupCnt;
-  const hqCut   = subV*hqR;
-  const proWash = (washV-wc)*cupCnt;
-  const proPg   = price*nonCnt*pgR;
-  const proUnit = subV - hqCut + proWash + proPg;
-  const basUnit = subV - hqCut + price*monthly*pgR;
+  const monthly     = daily*30;
+  const cupCnt      = Math.round(monthly*rcup);
+  const nonCnt      = monthly-cupCnt;
+  const hqCut       = subV*hqR;
 
-  const totalStores = pro+bas || 1;
-  const blended = (proUnit*pro + basUnit*bas)/totalStores;
-  const mrr = proUnit*pro + basUnit*bas;
-  const arr = mrr*12;
-  const ltv = proUnit*36*(1-Math.pow(1-churnR,36));
-  const ltvCac = ltv/800000;
+  // 세척 마진: 가맹점에게 받는 세척단가(VAT포함) - 업체에 주는 원가
+  const proWash     = (washV - wc) * cupCnt;
+
+  // 중개수수료 수취 (전체 주문 금액 기준)
+  const commissionRevenue = price * monthly * commissionR;
+
+  // PG사 지급 (내는 비용)
+  const pgCost      = price * monthly * pgR;
+
+  // 순 수수료 마진
+  const netCommission = commissionRevenue - pgCost;
+
+  // 프로 가맹점당 순익
+  const proUnit = subV - hqCut + proWash + netCommission;
+
+  // 베이직: 세척 없음
+  const basNetCommission = price * monthly * (commissionR - pgR);
+  const basUnit = subV - hqCut + basNetCommission;
+
+  const totalStores  = pro+bas || 1;
+  const blended      = (proUnit*pro + basUnit*bas)/totalStores;
+  const mrr          = proUnit*pro + basUnit*bas;
+  const arr          = mrr*12;
+  const ltv          = proUnit*36*(1-Math.pow(1-churnR,36));
+  const ltvCac       = ltv/800000;
 
   // TAM 바
   const tamPct = (totalStores/100000*100);
   $('cn-tam-fill').style.width = Math.max(tamPct,0.2).toFixed(2)+'%';
-  const tamZone = totalStores<3000?'SOM':'totalStores'<30000?'SAM':'TAM';
-  $('cn-tam-pct').textContent = (tamPct<0.1?tamPct.toFixed(2):tamPct.toFixed(1))+'%';
+  $('cn-tam-pct').textContent  = (tamPct<0.1?tamPct.toFixed(2):tamPct.toFixed(1))+'%';
 
   // 라벨
-  $('cn-pro-v').textContent   = pro.toLocaleString()+'개';
-  $('cn-bas-v').textContent   = bas.toLocaleString()+'개';
-  $('cn-new-v').textContent   = newM+'개';
-  $('cn-churn-v').textContent = Math.round(churnR*100)+'%';
-  $('cn-sub-v').textContent   = sub.toLocaleString()+'원';
-  $('cn-sub-vat').textContent = Math.round(subV).toLocaleString()+'원';
-  $('cn-daily-v').textContent = daily.toLocaleString()+'건';
-  $('cn-rcup-v').textContent  = Math.round(rcup*100)+'%';
-  $('cn-price-v').textContent = price.toLocaleString()+'원';
-  $('cn-pg-v').textContent    = gv('cn-pg').toFixed(1)+'%';
-  $('cn-wash-v').textContent  = wash+'원';
-  $('cn-wc-v').textContent    = wc+'원';
-  $('cn-hq-v').textContent    = Math.round(hqR*100)+'%';
-  $('cn-hqcut').textContent   = Math.round(hqCut).toLocaleString()+'원';
+  $('cn-pro-v').textContent        = pro.toLocaleString()+'개';
+  $('cn-bas-v').textContent        = bas.toLocaleString()+'개';
+  $('cn-new-v').textContent        = newM+'개';
+  $('cn-churn-v').textContent      = Math.round(churnR*100)+'%';
+  $('cn-sub-v').textContent        = sub.toLocaleString()+'원';
+  $('cn-sub-vat').textContent      = Math.round(subV).toLocaleString()+'원';
+  $('cn-daily-v').textContent      = daily.toLocaleString()+'건';
+  $('cn-rcup-v').textContent       = Math.round(rcup*100)+'%';
+  $('cn-price-v').textContent      = price.toLocaleString()+'원';
+  $('cn-commission-v').textContent = gv('cn-commission').toFixed(1)+'%';
+  $('cn-pg-v').textContent         = gv('cn-pg').toFixed(1)+'%';
+  $('cn-wash-v').textContent       = wash+'원';
+  $('cn-wc-v').textContent         = wc+'원';
+  $('cn-hq-v').textContent         = Math.round(hqR*100)+'%';
+  $('cn-hqcut').textContent        = Math.round(hqCut).toLocaleString()+'원';
 
   // KPI
-  $('cn-mrr').textContent  = fmtWon(mrr);
-  $('cn-arr').textContent  = '연 ARR '+fmtWon(arr);
+  $('cn-mrr').textContent   = fmtWon(mrr);
+  $('cn-arr').textContent   = '연 ARR '+fmtWon(arr);
   $('cn-profit').textContent = fmtWon(mrr);
   $('cn-margin').textContent = '순매출 기준';
   $('cn-ltvcac').textContent = ltvCac.toFixed(1)+'x';
 
   // 분해 (프로 기준)
-  $('cn-r1').textContent = '+'+Math.round(subV).toLocaleString()+'원';
-  $('cn-r2').textContent = '+'+Math.round(proWash).toLocaleString()+'원';
-  $('cn-r3').textContent = '+'+Math.round(proPg).toLocaleString()+'원';
-  $('cn-r4').textContent = '-'+Math.round(hqCut).toLocaleString()+'원';
-  $('cn-unit').textContent = w(Math.round(proUnit));
-  $('cn-unit').style.color = proUnit>=0?'var(--green)':'var(--red)';
+  $('cn-r1').textContent          = '+'+Math.round(subV).toLocaleString()+'원';
+  $('cn-r2').textContent          = '+'+Math.round(proWash).toLocaleString()+'원';
+  $('cn-r3').textContent          = '+'+Math.round(commissionRevenue).toLocaleString()+'원';
+  $('cn-r-pg').textContent        = '-'+Math.round(pgCost).toLocaleString()+'원';
+  $('cn-r4').textContent          = '-'+Math.round(hqCut).toLocaleString()+'원';
+  $('cn-net-commission').textContent = fmtWon(netCommission) + ' (수수료 순마진 '+((commissionR-pgR)*100).toFixed(1)+'%p)';
+  $('cn-unit').textContent        = w(Math.round(proUnit));
+  $('cn-unit').style.color        = proUnit>=0?'var(--green)':'var(--red)';
 
   // TAM 카드
   const tamCards = [
@@ -1695,7 +1688,7 @@ function bindSliders(){
   ['op-cnt','op-price','op-cost','op-labor','op-subsidy','op-rent','op-dep','op-growth']
     .forEach(id => $(id).addEventListener('input', calcOperate));
   // WE CONNECT
-  ['cn-pro','cn-bas','cn-new','cn-churn','cn-sub','cn-daily','cn-rcup','cn-price','cn-pg','cn-wash','cn-wc','cn-hq']
+  ['cn-pro','cn-bas','cn-new','cn-churn','cn-sub','cn-daily','cn-rcup','cn-price','cn-commission','cn-pg','cn-wash','cn-wc','cn-hq']
     .forEach(id => $(id).addEventListener('input', calcConnect));
   // 투자 ROI
   $('db-invest').addEventListener('input', function(){
@@ -1711,5 +1704,5 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 
 </script>
-
-</body></html>
+</body>
+</html>
