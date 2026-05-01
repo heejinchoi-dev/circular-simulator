@@ -306,8 +306,8 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
   <!-- 탭 네비게이션 -->
   <nav class="tab-nav">
     <button class="tab-btn" onclick="switchTab('dashboard',this)">📊 통합 대시보드</button>
-    <button class="tab-btn active" onclick="switchTab('make',this)">🏭 WE MAKE</button>
-    <button class="tab-btn" onclick="switchTab('operate',this)">🧹 WE OPERATE</button>
+    <button class="tab-btn" onclick="switchTab('make',this)">🏭 WE MAKE</button>
+    <button class="tab-btn active" onclick="switchTab('operate',this)">🧹 WE OPERATE</button>
     <button class="tab-btn" onclick="switchTab('connect',this)">📱 WE CONNECT</button>
     <button class="tab-btn coming" onclick="switchTab('franchise',this)">🔧 세척장 구독형 SaaS <span class="badge">COMING</span></button>
     <button class="tab-btn coming" onclick="switchTab('cafe',this)">☕ 카페 운영 <span class="badge">COMING</span></button>
@@ -317,7 +317,7 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
   <!-- ════════════════════════
        TAB 1: WE MAKE (용기 제조)
   ════════════════════════ -->
-  <div id="tab-make" class="tab-content active">
+  <div id="tab-make" class="tab-content">
     <div class="tab-header">
       <h2>🏭 WE MAKE — 용기 제조 수익</h2>
       <p>RFID 내장 다회용기 납품 + OEM→자체공장 전환 시 마진 구조 변화</p>
@@ -418,7 +418,7 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
   <!-- ════════════════════════
        TAB 2: WE OPERATE (세척 서비스)
   ════════════════════════ -->
-  <div id="tab-operate" class="tab-content">
+  <div id="tab-operate" class="tab-content active">
     <div class="tab-header">
       <h2>🧹 WE OPERATE — 직영 세척 서비스</h2>
       <p>RFID 기반 다회용기 세척·회수·출고 — 반복 매출 구조</p>
@@ -435,19 +435,19 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
         <!-- ══ WE OPERATE 변수 — 여기 숫자 수정 ══ -->
         <div class="panel-title">🧹 세척 설정</div>
         <div class="sg">
-          <div class="sl"><span class="sn">월 세척 건수</span><span class="sv" id="op-cnt-v">210,000건</span></div>
+          <div class="sl"><span class="sn">월 세척 건수</span><span class="sv" id="op-cnt-v">245,000건</span></div>
           <input type="range" id="op-cnt" min="1000" max="500000" step="1000" value="210000">
-          <p class="note">일 평균 <b id="op-daily">7,000</b>건</p>
+          <p class="note">일 평균 <b id="op-daily">8,167</b>건</p>
         </div>
         <div class="sg">
-          <div class="sl"><span class="sn">세척 단가 (부가세 별도)</span><span class="sv" id="op-price-v">160원</span></div>
+          <div class="sl"><span class="sn">세척 단가 (부가세 별도)</span><span class="sv" id="op-price-v">205원</span></div>
           <input type="range" id="op-price" min="100" max="400" step="5" value="160">
-          <p class="note">VAT포함 수취: <b id="op-price-vat">176원</b>/건</p>
+          <p class="note">VAT포함 수취: <b id="op-price-vat">226원</b>/건</p>
         </div>
         <div class="sg">
-          <div class="sl"><span class="sn">세척 원가 (개당)</span><span class="sv" id="op-cost-v">120원</span></div>
+          <div class="sl"><span class="sn">세척 원가 (개당)</span><span class="sv" id="op-cost-v">90원</span></div>
           <input type="range" id="op-cost" min="50" max="300" step="5" value="120">
-          <p class="note">건당 마진: <b id="op-unit-margin">56원</b></p>
+          <p class="note">건당 마진: <b id="op-unit-margin">136원</b></p>
         </div>
         <hr class="div">
         <div class="panel-title">🏢 세척장 고정비 (월)</div>
@@ -456,12 +456,12 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
           <input type="range" id="op-labor" min="500000" max="100000000" step="500000" value="29500000">
         </div>
         <div class="sg">
-          <div class="sl"><span class="sn">장애인고용장려금 (월 수령)</span><span class="sv" id="op-subsidy-v">0만원</span></div>
+          <div class="sl"><span class="sn">장애인고용장려금 (월 수령)</span><span class="sv" id="op-subsidy-v">900만원</span></div>
           <input type="range" id="op-subsidy" min="0" max="10000000" step="100000" value="0">
           <p class="note" style="color:#00a86b;">♿ 장애인표준사업장 — 인건비에서 차감되는 실질 지원금</p>
         </div>
         <div class="sg">
-          <div class="sl"><span class="sn">임차료·유틸리티</span><span class="sv" id="op-rent-v">650만</span></div>
+          <div class="sl"><span class="sn">임차료·유틸리티</span><span class="sv" id="op-rent-v">1100만</span></div>
           <input type="range" id="op-rent" min="500000" max="20000000" step="500000" value="6500000">
         </div>
         <div class="sg">
@@ -478,36 +478,36 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
 
       <div class="result-section">
         <div class="kpi-grid">
-          <div class="kpi cyan"><div class="kl">월 매출 (VAT포함)</div><div class="kv" id="op-rev-m">3,696만원</div><div class="ks" id="op-rev-y">연간 4.4억원</div></div>
-          <div class="kpi green"><div class="kl">월 영업이익</div><div class="kv" id="op-profit-m">-2,544만원</div><div class="ks" id="op-margin">마진율 -68.8%</div></div>
-          <div class="kpi yellow"><div class="kl">건당 마진</div><div class="kv" id="op-unit-m">56원</div><div class="ks">세척 1건당</div></div>
-          <div class="kpi blue"><div class="kl">BEP 세척건수</div><div class="kv" id="op-bep">664,286건</div><div class="ks">월 손익분기</div></div>
+          <div class="kpi cyan"><div class="kl">월 매출 (VAT포함)</div><div class="kv" id="op-rev-m">5,525만원</div><div class="ks" id="op-rev-y">연간 6.6억원</div></div>
+          <div class="kpi green"><div class="kl">월 영업이익</div><div class="kv" id="op-profit-m">50만원</div><div class="ks" id="op-margin">마진율 0.9%</div></div>
+          <div class="kpi yellow"><div class="kl">건당 마진</div><div class="kv" id="op-unit-m">136원</div><div class="ks">세척 1건당</div></div>
+          <div class="kpi blue"><div class="kl">BEP 세척건수</div><div class="kv" id="op-bep">241,329건</div><div class="ks">월 손익분기</div></div>
         </div>
 
         <div class="card">
           <div class="card-title">수익 구조 분해 (월)</div>
-          <div class="row-item"><span class="row-label">세척 매출 (VAT포함)</span><span class="row-val pos" id="op-r1">+3,696만원</span></div>
-          <div class="row-item"><span class="row-label">세척 원가</span><span class="row-val neg" id="op-r2">-2,520만원</span></div>
+          <div class="row-item"><span class="row-label">세척 매출 (VAT포함)</span><span class="row-val pos" id="op-r1">+5,525만원</span></div>
+          <div class="row-item"><span class="row-label">세척 원가</span><span class="row-val neg" id="op-r2">-2,205만원</span></div>
           <div class="row-item"><span class="row-label">인건비</span><span class="row-val neg" id="op-r3">-2,950만원</span></div>
           <div class="row-item" style="background:rgba(0,168,107,0.05);">
             <span class="row-label" style="color:#00a86b;">♿ 장애인고용장려금 (수령)</span>
-            <span class="row-val pos" id="op-r-subsidy">0원</span>
+            <span class="row-val pos" id="op-r-subsidy">+900만원</span>
           </div>
-          <div class="row-item"><span class="row-label">임차료·유틸리티</span><span class="row-val neg" id="op-r4">-650만원</span></div>
+          <div class="row-item"><span class="row-label">임차료·유틸리티</span><span class="row-val neg" id="op-r4">-1,100만원</span></div>
           <div class="row-item"><span class="row-label">장비 감가상각</span><span class="row-val neg" id="op-r5">-120만원</span></div>
-          <div class="total-row"><span>월 영업이익</span><span id="op-total" style="font-family: &quot;Space Mono&quot;, monospace; color: var(--red);">-2,544만원</span></div>
+          <div class="total-row"><span>월 영업이익</span><span id="op-total" style="font-family: &quot;Space Mono&quot;, monospace; color: var(--green);">+50만원</span></div>
         </div>
 
         <div class="card">
           <div class="card-title">BEP 달성 현황</div>
           <div style="font-size:11px;color:var(--g1);margin-bottom:6px;">현재 세척건수 vs BEP 건수</div>
-          <div class="prog-track"><div class="prog-fill" id="op-bep-prog" style="background: var(--cyan); width: 31.6129%;"></div></div>
-          <div id="op-ins" class="ins warn" style="margin-top:8px;">⚠️ 적자 중 — BEP까지 월 454,286건 추가 필요합니다.</div>
+          <div class="prog-track"><div class="prog-fill" id="op-bep-prog" style="background: var(--green); width: 100%;"></div></div>
+          <div id="op-ins" class="ins ok" style="margin-top:8px;">✅ 흑자 운영 중 — BEP 대비 2% 초과 달성.</div>
         </div>
 
         <div class="card">
           <div class="card-title">12개월 세척 매출 프로젝션</div>
-          <div class="chart-wrap" style="height:200px;"><canvas id="op-chart" role="img" aria-label="WE OPERATE 12개월 프로젝션" height="0" style="display: block; box-sizing: border-box; height: 0px; width: 0px;" width="0">세척 차트</canvas></div>
+          <div class="chart-wrap" style="height:200px;"><canvas id="op-chart" role="img" aria-label="WE OPERATE 12개월 프로젝션" height="200" style="display: block; box-sizing: border-box; height: 200px; width: 1314px;" width="1314">세척 차트</canvas></div>
         </div>
       </div>
     </div>
@@ -671,22 +671,22 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
     <div class="dashboard-grid" style="margin-bottom:20px;">
       <div class="dash-card" style="border-top:3px solid var(--cyan);">
         <div class="dash-label">합산 월 매출</div>
-        <div class="dash-val" id="db-rev" style="color:var(--cyan);">2.0억원</div>
-        <div class="dash-sub" id="db-rev-y">연 ARR 24.1억원</div>
+        <div class="dash-val" id="db-rev" style="color:var(--cyan);">2.2억원</div>
+        <div class="dash-sub" id="db-rev-y">연 ARR 26.3억원</div>
       </div>
       <div class="dash-card" style="border-top:3px solid var(--green);">
         <div class="dash-label">합산 월 영업이익</div>
-        <div class="dash-val" id="db-profit" style="color:var(--green);">9,465만원</div>
-        <div class="dash-sub" id="db-margin">영업이익률 47.0%</div>
+        <div class="dash-val" id="db-profit" style="color:var(--green);">1.2억원</div>
+        <div class="dash-sub" id="db-margin">영업이익률 54.9%</div>
       </div>
       <div class="dash-card" style="border-top:3px solid var(--yellow);">
         <div class="dash-label">연간 EBITDA 추정</div>
-        <div class="dash-val" id="db-ebitda" style="color:var(--yellow);">11.5억원</div>
+        <div class="dash-val" id="db-ebitda" style="color:var(--yellow);">14.6억원</div>
         <div class="dash-sub">감가상각 가산</div>
       </div>
       <div class="dash-card" style="border-top:3px solid var(--blue);">
         <div class="dash-label">100억 달성까지</div>
-        <div class="dash-val" id="db-target" style="color:var(--blue);">75.9억원</div>
+        <div class="dash-val" id="db-target" style="color:var(--blue);">73.7억원</div>
         <div class="dash-sub">현재 ARR 대비</div>
       </div>
     </div>
@@ -697,15 +697,15 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
       <div id="db-breakdown" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px;"><div style="background:var(--bg3);border-radius:8px;padding:12px;border:1px solid var(--bdr);">
       <div style="font-size:9px;color:var(--g1);margin-bottom:4px;">WE MAKE</div>
       <div style="font-size:15px;font-weight:900;color:var(--cyan);">8,062만원</div>
-      <div style="font-size:10px;color:var(--g2);">전체 40.1%</div>
+      <div style="font-size:10px;color:var(--g2);">전체 36.7%</div>
     </div><div style="background:var(--bg3);border-radius:8px;padding:12px;border:1px solid var(--bdr);">
       <div style="font-size:9px;color:var(--g1);margin-bottom:4px;">WE OPERATE</div>
-      <div style="font-size:15px;font-weight:900;color:var(--green);">3,696만원</div>
-      <div style="font-size:10px;color:var(--g2);">전체 18.4%</div>
+      <div style="font-size:15px;font-weight:900;color:var(--green);">5,525만원</div>
+      <div style="font-size:10px;color:var(--g2);">전체 25.2%</div>
     </div><div style="background:var(--bg3);border-radius:8px;padding:12px;border:1px solid var(--bdr);">
       <div style="font-size:9px;color:var(--g1);margin-bottom:4px;">WE CONNECT</div>
       <div style="font-size:15px;font-weight:900;color:#534AB7;">8,358만원</div>
-      <div style="font-size:10px;color:var(--g2);">전체 41.6%</div>
+      <div style="font-size:10px;color:var(--g2);">전체 38.1%</div>
     </div><div style="background:var(--bg3);border-radius:8px;padding:12px;border:1px solid var(--bdr);">
       <div style="font-size:9px;color:var(--g1);margin-bottom:4px;">프랜차이즈 세척장</div>
       <div style="font-size:15px;font-weight:900;color:var(--yellow);">0원</div>
@@ -730,9 +730,9 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
           <tbody id="db-table-body">
     <tr style="border-bottom:1px solid var(--bdr);font-weight:700;">
       <td style="padding:8px;color:var(--g1);font-size:12px;">매출액</td>
-      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;">24.1억원</td>
-      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;color:var(--cyan);">48.3억원</td>
-      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;color:var(--green);">96.6억원</td>
+      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;">26.3억원</td>
+      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;color:var(--cyan);">52.7억원</td>
+      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;color:var(--green);">105.3억원</td>
     </tr>
     <tr style="border-bottom:1px solid var(--bdr);">
       <td style="padding:8px;color:var(--g1);font-size:12px;">성장률</td>
@@ -742,21 +742,21 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
     </tr>
     <tr style="border-bottom:1px solid var(--bdr);">
       <td style="padding:8px;color:var(--g1);font-size:12px;">영업이익</td>
-      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;">11.4억원</td>
-      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;color:var(--cyan);">22.7억원</td>
-      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;color:var(--green);">45.4억원</td>
+      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;">14.5억원</td>
+      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;color:var(--cyan);">28.9억원</td>
+      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;color:var(--green);">57.9억원</td>
     </tr>
     <tr style="border-bottom:1px solid var(--bdr);">
       <td style="padding:8px;color:var(--g1);font-size:12px;">영업이익률</td>
-      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;">47.0%</td>
-      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;color:var(--cyan);">50.0%</td>
-      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;color:var(--green);">53.0%</td>
+      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;">54.9%</td>
+      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;color:var(--cyan);">57.9%</td>
+      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;color:var(--green);">60.9%</td>
     </tr>
     <tr style="border-bottom:1px solid var(--bdr);">
       <td style="padding:8px;color:var(--g1);font-size:12px;">EBITDA</td>
-      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;">11.5억원</td>
-      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;color:var(--cyan);">23.0억원</td>
-      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;color:var(--green);">46.0억원</td>
+      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;">14.6억원</td>
+      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;color:var(--cyan);">29.2억원</td>
+      <td style="padding:8px;text-align:right;font-family:'Space Mono',monospace;font-size:11px;color:var(--green);">58.5억원</td>
     </tr></tbody>
         </table>
       </div>
@@ -785,15 +785,15 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
     <div style="font-size:14px;font-weight:900;color:var(--blue);">5.0억원</div>
   </div><div style="background:var(--bg3);border-radius:8px;padding:10px;text-align:center;border:1px solid var(--bdr);">
     <div style="font-size:9px;color:var(--g1);margin-bottom:3px;">월 영업이익</div>
-    <div style="font-size:14px;font-weight:900;color:var(--green);">9,465만원</div>
+    <div style="font-size:14px;font-weight:900;color:var(--green);">1.2억원</div>
   </div><div style="background:var(--bg3);border-radius:8px;padding:10px;text-align:center;border:1px solid var(--bdr);">
     <div style="font-size:9px;color:var(--g1);margin-bottom:3px;">투자 회수</div>
-    <div style="font-size:14px;font-weight:900;color:var(--green);">6개월</div>
+    <div style="font-size:14px;font-weight:900;color:var(--green);">5개월</div>
   </div><div style="background:var(--bg3);border-radius:8px;padding:10px;text-align:center;border:1px solid var(--bdr);">
     <div style="font-size:9px;color:var(--g1);margin-bottom:3px;">ARR/투자금</div>
-    <div style="font-size:14px;font-weight:900;color:var(--cyan);">4.8x</div>
+    <div style="font-size:14px;font-weight:900;color:var(--cyan);">5.3x</div>
   </div></div>
-        <div id="db-roi-ins" class="ins ok" style="margin-top:8px;">✅ 5.0억원 투자 시 6개월 내 회수 가능합니다.</div>
+        <div id="db-roi-ins" class="ins ok" style="margin-top:8px;">✅ 5.0억원 투자 시 5개월 내 회수 가능합니다.</div>
       </div>
     </div>
   </div>
@@ -915,7 +915,7 @@ async function saveToGitHub(){
     const marker = '/* __SAVED_DEFAULTS__ */
 (function(){
   if(!window.location.search){
-    var p = '?mk-stock=0&mk-qty=27800&mk-price=2900&mk-oem=1500&mk-factory=600&mk-mode=0&mk-growth=3&op-cnt=210000&op-price=160&op-cost=120&op-labor=29500000&op-subsidy=0&op-rent=6500000&op-dep=1200000&op-growth=5&cn-pro=200&cn-bas=100&cn-new=10&cn-churn=5&cn-sub=49000&cn-daily=100&cn-rcup=60&cn-price=4500&cn-pg=2&cn-wash=190&cn-wc=150&cn-hq=15&db-invest=500000000';
+    var p = '?mk-stock=0&mk-qty=27800&mk-price=2900&mk-oem=1500&mk-factory=600&mk-mode=0&mk-growth=3&op-cnt=245000&op-price=205&op-cost=90&op-labor=29500000&op-subsidy=9000000&op-rent=11000000&op-dep=1200000&op-growth=5&cn-pro=200&cn-bas=100&cn-new=10&cn-churn=5&cn-sub=49000&cn-daily=100&cn-rcup=60&cn-price=4500&cn-pg=2&cn-wash=190&cn-wc=150&cn-hq=15&db-invest=500000000';
     window.history.replaceState({}, '', p);
   }
 })();`;
