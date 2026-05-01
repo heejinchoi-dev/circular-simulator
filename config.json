@@ -1,11 +1,11 @@
 {
   "mk-stock": "0",
-  "mk-qty": "100",
-  "mk-price": "2900",
-  "mk-oem": "1250",
+  "mk-qty": "17100",
+  "mk-price": "3500",
+  "mk-oem": "1450",
   "mk-factory": "600",
-  "mk-mode": "0",
-  "mk-growth": "5",
+  "mk-mode": "1",
+  "mk-growth": "3",
   "op-cnt": "210000",
   "op-price": "160",
   "op-cost": "120",
@@ -28,5 +28,5 @@
   "cn-wc": "50",
   "cn-hq": "15",
   "db-invest": "500000000",
-  "_saved_at": "2026. 5. 1. 오후 3:09:50"
+  "_saved_at": "2026. 5. 1. 오후 3:11:44"
 }
