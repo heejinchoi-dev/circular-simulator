@@ -14,10 +14,10 @@
   "op-rent": "6500000",
   "op-dep": "1200000",
   "op-growth": "5",
-  "cn-pro": "200",
-  "cn-bas": "100",
+  "cn-pro": "0",
+  "cn-bas": "0",
   "cn-new": "10",
-  "cn-churn": "5",
+  "cn-churn": "0",
   "cn-sub": "49000",
   "cn-daily": "100",
   "cn-rcup": "60",
@@ -25,8 +25,8 @@
   "cn-commission": "2",
   "cn-pg": "1.2",
   "cn-wash": "190",
-  "cn-wc": "150",
+  "cn-wc": "50",
   "cn-hq": "15",
   "db-invest": "500000000",
-  "_saved_at": "2026. 5. 1. 오후 3:09:04"
+  "_saved_at": "2026. 5. 1. 오후 3:09:50"
 }
