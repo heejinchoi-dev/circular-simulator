@@ -731,7 +731,7 @@ hr.div{border:none;border-top:1px solid var(--bdr);margin:12px 0;}
   ════════════════════════ -->
   <div id="tab-dashboard" class="tab-content active">
     <div class="tab-header">
-      <h2>📊 통합 대시보드 — 3개 사업 합산</h2>
+      <h2>📊 통합 대시보드 — 3개 사업 합산(2026E)</h2>
       <p>WE MAKE + WE OPERATE + WE CONNECT — 현재 각 탭 설정값 기준 실시간 합산</p>
     </div>
 
@@ -1123,7 +1123,7 @@ function initAllCharts(){
   // 통합 대시보드 차트
   dbChart = new Chart($('db-chart'),{
     type:'bar',
-    data:{ labels:['WE MAKE','WE OPERATE','WE CONNECT','프랜차이즈 세척장'],
+    data:{ labels:['WE MAKE','WE OPERATE','WE CONNECT','세척장 구독형 서비스'],
       datasets:[{ label:'월 매출', data:[0,0,0,0],
         backgroundColor:['rgba(0,153,187,0.7)','rgba(0,168,107,0.7)','rgba(83,74,183,0.7)','rgba(230,168,0,0.7)'],
         borderRadius:4 }]
@@ -1607,7 +1607,7 @@ function updateDashboard(){
     { label:'WE MAKE',      rev: make.rev,      color:'var(--cyan)'  },
     { label:'WE OPERATE',   rev: operate.rev,   color:'var(--green)' },
     { label:'WE CONNECT',   rev: connect.rev,   color:'#534AB7'      },
-    { label:'프랜차이즈 세척장', rev: franchise.rev, color:'var(--yellow)'}
+    { label:'세척장 구독형 서비스', rev: franchise.rev, color:'var(--yellow)'}
   ];
   $('db-breakdown').innerHTML = segments.map(s=>{
     const pct = totalRev > 0 ? (s.rev/totalRev*100).toFixed(1) : '0.0';
