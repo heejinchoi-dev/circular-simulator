@@ -654,7 +654,13 @@ async function loadConfig(){
     const res=await fetch(`https://raw.githubusercontent.com/heejinchoi-dev/circular-simulator/main/config.json?t=${Date.now()}`);
     if(!res.ok)return false;
     const config=await res.json();
-    ALL_SLIDER_IDS.forEach(id=>{if(config[id]!==undefined){const el=document.getElementById(id);if(el)el.value=config[id];}});
+    // ── 현재 HTML에 존재하는 슬라이더만 로드 (구버전 키 무시) ──
+    ALL_SLIDER_IDS.forEach(id=>{
+      if(config[id]!==undefined){
+        const el=document.getElementById(id);
+        if(el)el.value=config[id];
+      }
+    });
     return true;
   }catch(e){return false;}
 }
